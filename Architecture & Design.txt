@@ -1,0 +1,7 @@
+Our project is a C++ desktop application built in Visual Studio, featuring a simple GUI and a cloud-hosted MySQL database. 
+This stack leverages our team's C++ skills for performance, while MySQL offers a straightforward and reliable data storage solution suitable for our project's scope.
+
+The primary risk is user data security. We'll mitigate this by hashing all passwords before they're stored in the database. 
+A second risk involves potential network failures or invalid login attempts, which will be managed through comprehensive error handling to ensure system stability and prevent unauthorized access.
+
+Our key priorities are robust security for all user credentials and a high degree of usability, delivered through an intuitive and responsive user interface.
