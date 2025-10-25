@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Math Game</title>
+    <style>
+        body { font-family: sans-serif; padding: 2em; }
+        .question { font-size: 1.5em; margin-bottom: 1em; }
+        .result { margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <div class="question" id="question">Loading...</div>
+    <input type="number" id="answerInput" placeholder="Your answer">
+    <button onclick="submitAnswer()">Submit</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        let currentQuestion = "";
+
+        async function loadQuestion() {
+            const res = await fetch('/api/question');
+            const data = await res.json();
+            document.getElementById('question').innerText = data.question;
+        }
+
+        async function submitAnswer() {
+            const answer = document.getElementById('answerInput').value;
+            const res = await fetch('/api/answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer: parseInt(answer) })
+            });
+            const data = await res.json();
+            const resultDiv = document.getElementById('result');
+            if (data.correct) {
+                resultDiv.innerText = "Correct!";
+            } else {
+                resultDiv.innerText = "Incorrect. The correct answer was " + data.correct_answer;
+            }
+            loadQuestion();  // Load next question
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
