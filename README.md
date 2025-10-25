@@ -1,4 +1,4 @@
-C++ Web Math Game
+# C++ Web Math Game
 
 This is a simple web-based math game that demonstrates a modern web architecture:
 
