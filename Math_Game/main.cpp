@@ -6,7 +6,7 @@
 #include <memory>      // For std::make_shared
 #include <unordered_set> // For public_paths
 
-// Helper function, this will be used to load the
+// Helper function, this will be used to load the web pages
 crow::response load_static_file(const std::string& path) {
     std::ifstream file("static/" + path);
     if (!file.is_open()) {

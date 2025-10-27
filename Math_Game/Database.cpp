@@ -64,7 +64,8 @@ void Database::create_tables() {
     }
 }
 
-// --- HASHING (Warning: Not for production!) ---
+// HASHING
+// NOTE: this is not for production use, since our program is pretty small and wont be published, we can get away with this.
 // This is a simple placeholder. Real apps must use a slow, salted hash
 // like Argon2, scrypt, or bcrypt.
 std::string Database::hash_password(const std::string& password) {
