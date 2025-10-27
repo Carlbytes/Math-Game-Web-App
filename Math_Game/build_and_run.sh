@@ -1,29 +1,33 @@
 #!/bin/bash
+echo "🚀 Building the project..."
 
-# This script compiles and runs the C++ backend server.
-# It's designed for Linux and macOS.
+# --- Prerequisites ---
+# Make sure required libraries are installed
+sudo apt-get update
+sudo apt-get install -y libsqlite3-dev libasio-dev libssl-dev
 
 # --- Compilation ---
-# -std=c++17: Use the C++17 standard.
-# -o math_server: The name of the output executable file.
-# -pthread: Link against the POSIX threads library.
-# We no longer need Boost flags because new Crow versions use Standalone Asio.
-echo "Compiling main.cpp..."
-g++ -std=c++17 main.cpp -o math_server -pthread
+g++ -std=c++17 -g -I. -c main.cpp -o main.o
+g++ -std=c++17 -g -I. -c Database.cpp -o Database.o
+g++ -std=c++17 -g -I. -c game.cpp -o game.o
 
-# Check if compilation was successful
-if [ $? -ne 0 ]; then
-    echo "Compilation failed. Please check for errors."
-    echo ""
-    echo "If you see 'asio.hpp: No such file or directory', run:"
-    echo "sudo apt-get update && sudo apt-get install libasio-dev"
-    exit 1
+# --- Linking ---
+# Link all object files (.o) into a single executable
+# -o math_server: The name of the final program
+# -lsqlite3: Link the SQLite3 library
+# -lssl: Link the OpenSSL library
+# -lcrypto: Link the OpenSSL crypto library (for hashing)
+g++ -g main.o Database.o game.o -o math_server -lsqlite3 -lssl -lcrypto
+
+# --- Cleanup ---
+rm main.o Database.o game.o
+
+# --- Run ---
+if [ $? -eq 0 ]; then
+    echo "✅ Build successful!"
+    echo "🚪 Starting server on port 18080..."
+    ./math_server
+else
+    echo "❌ Build failed. Please check for errors."
 fi
 
-echo "Compilation successful. Executable 'math_server' created."
-echo ""
-
-# --- Execution ---
-echo "Starting the C++ server on http://localhost:18080"
-echo "Press Ctrl+C to stop the server."
-./math_server
