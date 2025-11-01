@@ -1,123 +1,125 @@
-#include "crow_all.h"   // The main Crow framework header.
-#include <fstream>      // For file input/output (reading index.html)
-#include <sstream>      // For string streams (buffering file contents)
-#include <cstdlib>      // For rand() and srand() (random numbers)
-#include <ctime>        // For time() (seeding the random number generator)
-/**
- * @brief Generates a simple addition question.
- * @return A pair containing the question string (e.g., "What is 5 + 3?")
- * and the integer answer (e.g., 8).
- */
-std::pair<std::string, int> generate_question() {
-    // Generate two random numbers between 1 and 10
-    int a = rand() % 10 + 1;
-    int b = rand() % 10 + 1;
+#include "crow_all.h"
+#include "Database.h" // Include our database class
+#include "game.h"     // Include our new game logic
+#include <fstream>
+#include <sstream>     // Make sure this is included
+#include <memory>      // For std::make_shared
+#include <unordered_set> // For public_paths
+
+// Helper function, this will be used to load the web pages
+crow::response load_static_file(const std::string& path) {
+    std::ifstream file("static/" + path);
+    if (!file.is_open()) {
+        return crow::response(404, "Not Found");
+    }
     
-    // Create the question string
-    std::string question = "What is " + std::to_string(a) + " + " + std::to_string(b) + "?";
+    std::stringstream buffer;
+
+    buffer << file.rdbuf();
     
-    // Return both the question and the correct answer
-    return {question, a + b};
+    crow::response res(buffer.str());
+    if (path.find(".html") != std::string::npos) {
+        res.set_header("Content-Type", "text/html");
+    } else if (path.find(".css") != std::string::npos) {
+        res.set_header("Content-Type", "text/css");
+    }
+    return res;
 }
+
+// Middleware to check for a valid session token
+struct AuthMiddleware {
+    std::shared_ptr<Database> db_ptr;
+    
+    std::unordered_set<std::string> public_paths = {
+        "/", 
+        "/main.css", 
+        "/api/login", 
+        "/api/register",
+        "/game" 
+    };
+
+    AuthMiddleware(std::shared_ptr<Database> db) : db_ptr(db) {}
+    struct context {};
+
+    void before_handle(crow::request& req, crow::response& res, context& /*ctx*/) {
+        if (public_paths.count(req.url)) {
+            return; 
+        }
+
+        auto token = req.get_header_value("Authorization");
+        if (token.rfind("Bearer ", 0) != 0 || !db_ptr->validate_session(token.substr(7))) {
+            res.code = 401; 
+            res.body = "{\"error\": \"Unauthorized\"}";
+            res.end(); 
+        }
+    }
+    void after_handle(crow::request& /*req*/, crow::response& /*res*/, context& /*ctx*/) {}
+};
+
 
 int main() {
-    // Seed the random number generator once when the server starts
-    srand(time(nullptr));
+    //initialize game logic
+    Game::initialize(); 
+    auto db = std::make_shared<Database>("math_game.db");
+    crow::App<AuthMiddleware> app(AuthMiddleware{db});
 
-    // Create an instance of the Crow web application
-    crow::SimpleApp app;
+    //public routes
+    CROW_ROUTE(app, "/")([] { return load_static_file("login.html"); });
+    CROW_ROUTE(app, "/main.css")([] { return load_static_file("main.css"); });
+    CROW_ROUTE(app, "/game")([] { return load_static_file("game.html"); }); 
 
-    // Server State
-    // These variables hold the *current* question and answer.
-    // Because we are using .multithreaded(), these are not
-    // technically "thread-safe." 
-    // since our game is simple, its fine and it works
-    // but if we want to make anything bigger we should look at other options
-    std::string current_question;
-    int current_answer;
-
-    // Web Page Route
-    // This route handles requests for the main web page 
-    CROW_ROUTE(app, "/")([] {
-        // Open the index.html file
-        // Assumes it's in a folder named "static" in the same
-        // directory where the server executable is run
-        // AKA, please dont change this file structure all too much
-        std::ifstream file("static/index.html");
-        if (!file.is_open()) {
-            // If the file isn't found, send a 500 server error.
-            return crow::response(500, "index.html not found.");
-        }
-        
-        // Read the entire file into a string buffer.
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-        
-        // Send the file's contents as the response.
-        // The browser will render this as a web page.
-        return crow::response(buffer.str());
-    });
-
-    //API Routes 
-    
-    /**
-     * @brief API endpoint to get a new math question.
-     * @method GET
-     * @url /api/question
-     * @return JSON: {"question": "What is a + b?"}
-     */
-    CROW_ROUTE(app, "/api/question").methods("GET"_method)
-    // The [&] captures the server state variables (current_question, current_answer)
-    // by reference, so we can update them.
-    ([&](const crow::request&) {
-        // Generate a new question and answer
-        auto [q, ans] = generate_question();
-        
-        // Store them as the "current" ones for the /api/answer route to check.
-        current_question = q;
-        current_answer = ans;
-        
-        // Create a JSON response object
-        crow::json::wvalue response;
-        response["question"] = q;
-        
-        // return JSON to front end
-        return response;
-    });
-
-    /**
-     * @brief API endpoint to check a user's answer
-     * @method POST
-     * @url /api/answer
-     * @body JSON: {"answer": 5}
-     * @return JSON: {"correct": true/false, "correct_answer": 8}
-     */
-    CROW_ROUTE(app, "/api/answer").methods("POST"_method)
-    // Capture state variables by reference again
-    ([&](const crow::request& req) {
-        // Parse the JSON body sent from the frontend
+    CROW_ROUTE(app, "/api/register").methods("POST"_method)
+        ([&db](const crow::request& req) {
         auto body = crow::json::load(req.body);
-        
-        // this checks if the JSON is valid, and has an answer field
-        if (!body || !body.has("answer")) {
-            return crow::response(400, "Bad Request: Missing 'answer' field.");
+        if (!body || !body.has("username") || !body.has("password")) {
+            return crow::response(400, "{\"error\": \"Missing username or password\"}");
         }
-
-        // pull the users answer as an integer from the JSON. this will maybe needed to be changed if we use doubles or floats
-        int user_answer = body["answer"].i();
-        
-        // Create the JSON response
-        crow::json::wvalue res;
-        res["correct"] = (user_answer == current_answer); // Check if correct
-        res["correct_answer"] = current_answer;          // Tell the frontend the right answer
-        
-        // Send the JSON response.
-        return crow::response(res);
+        std::string user = body["username"].s();
+        std::string pass = body["password"].s();
+        if (db->create_user(user, pass)) {
+            return crow::response(201, "{\"success\": \"User created\"}");
+        } else {
+            return crow::response(409, "{\"error\": \"Username already exists\"}");
+        }
     });
 
-    //this bit starts the server
-    std::cout << "Starting server on port 18080..." << std::endl;
-    app.port(18080)     // Set the port to 18080 (or whatever you want, i just had something running on 8080)
-       .multithreaded() // Allow the server to handle multiple requests at once
-       .run();          // Start the server and listen for connections
+    CROW_ROUTE(app, "/api/login").methods("POST"_method)
+        ([&db](const crow::request& req) {
+        auto body = crow::json::load(req.body);
+        if (!body || !body.has("username") || !body.has("password")) {
+            return crow::response(400, "{\"error\": \"Missing username or password\"}");
+        }
+        std::string user = body["username"].s();
+        std::string pass = body["password"].s();
+        if (db->check_login(user, pass)) {
+            std::string token = db->create_session(user);
+            if (!token.empty()) {
+                crow::json::wvalue res;
+                res["token"] = token;
+                return crow::response(200, res);
+            }
+        }
+        return crow::response(401, "{\"error\": \"Invalid username or password\"}");
+    });
+
+    // Protected Routes
+    CROW_ROUTE(app, "/api/question").methods("GET"_method)
+        ([] {
+        return crow::response(200, Game::get_question());
+    });
+
+    CROW_ROUTE(app, "/api/answer").methods("POST"_method)
+        ([](const crow::request& req) {
+        auto body = crow::json::load(req.body);
+        if (!body || !body.has("user_answer") || !body.has("correct_answer")) {
+            return crow::response(400, "Bad Request");
+        }
+        int user_ans = body["user_answer"].i();
+        int correct_ans = body["correct_answer"].i();
+        return crow::response(200, Game::check_answer(user_ans, correct_ans));
+    });
+
+    // Start the server
+    app.port(18080).multithreaded().run();
 }
+
