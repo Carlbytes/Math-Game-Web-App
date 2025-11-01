@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\mathgAME",
+    "\\mathgAME\\mathGame1"
   ],
-  "SelectedNode": "\\Architecture \u0026 Design.txt",
+  "SelectedNode": "\\mathgAME\\mathGame1\\math_game.cpp",
   "PreviewInSolutionExplorer": false
 }
