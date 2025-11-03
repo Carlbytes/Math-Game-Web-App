@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "mathgAME\\mathGame1\\math_game.cpp",
               "ToolTip": "C:\\College Stuff\\Year Three\\Y3 Reposits\\SoftwareDev3Agile\\SoftwareDevelopment3GP\\mathgAME\\mathGame1\\math_game.cpp",
               "RelativeToolTip": "mathgAME\\mathGame1\\math_game.cpp",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAAAAAAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-24T09:20:08.437Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "mathgAME\\mathGame1\\mathGame1.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-24T09:20:04.814Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T09:20:04.814Z"
             }
           ]
         },
@@ -62,15 +61,15 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
