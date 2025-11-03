@@ -1,0 +1,2399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+<coverage line-rate="0" branch-rate="0" lines-covered="0" lines-valid="3043" branches-covered="0" branches-valid="1107" complexity="1496" version="0" timestamp="1762205770">
+  <sources />
+  <packages>
+    <package name="GoogleTestAdapter.Common" line-rate="0" branch-rate="0" complexity="52">
+      <classes>
+        <class name="GoogleTestAdapter.Common.CommonResources" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\CommonResources.cs" line-rate="1" branch-rate="1" complexity="9">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ResourceManager" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_Culture" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Culture" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ExtensionName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestDiscoveryStarting" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestExecutionStarting" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TroubleShootingLink" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Common.DebuggerAttacherServiceConfiguration" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\DebuggerAttacherServiceConfiguration.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="ConstructPipeUri" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="CreateProxy" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Common.DebuggerAttacherServiceFault" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\IDebuggerAttacherService.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Message" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Message" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Common.DebuggerAttacherServiceProxyWrapper" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\IDebuggerAttacherService.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Service" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Service" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Dispose" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="Dispose" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Common.LoggerBase" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\LoggerBase.cs" line-rate="1" branch-rate="1" complexity="17">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ReportFinalLogEntry" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetMessages" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="LogInfo" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LogWarning" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LogError" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="DebugInfo" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="DebugWarning" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="DebugError" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_Severity" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Severity" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Message" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Message" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Common.LoggerBase.LogEntry" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\LoggerBase.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_Severity" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Severity" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Message" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Message" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Common.ProcessWaiter" filename="D:\a\_work\1\s\GoogleTestAdapter\Common\ProcessWaiter.cs" line-rate="1" branch-rate="1" complexity="7">
+          <methods>
+            <method name="get_ProcessExitCode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ProcessExitCode" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="WaitForExit" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="OnExited" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+      </classes>
+    </package>
+    <package name="GoogleTestAdapter.Core" line-rate="0" branch-rate="0" complexity="1127">
+      <classes>
+        <class name="GoogleTestAdapter.Framework.IProcessExecutorExtensions" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Framework\IProcessExecutor.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="ExecuteBatchFileBlocking" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Framework.TestRunCanceledException" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Framework\TestRunCanceledException.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.GoogleTestConstants" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\GoogleTestConstants.cs" line-rate="1" branch-rate="1" complexity="7">
+          <methods>
+            <method name="GetCatchExceptionsOption" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetBreakOnFailureOption" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ValidateShuffleTestsSeedValue" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.GoogleTestDiscoverer" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\GoogleTestDiscoverer.cs" line-rate="1" branch-rate="1" complexity="22">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="DiscoverTests" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="DiscoverTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetTestsFromExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="IsGoogleTestExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="SafeMatches" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="VerifyExecutableTrust" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.GoogleTestExecutor" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\GoogleTestExecutor.cs" line-rate="1" branch-rate="1" complexity="15">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ComputeTestRunner" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.AllKindsOfExtensions" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\Extensions.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name="Partition&lt;T&gt;" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GroupByExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="AppendIfNotEmpty" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.AllKindsOfExtensions.&lt;&gt;c__DisplayClass1_0&lt;T&gt;" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\Extensions.cs" line-rate="1" branch-rate="1" complexity="NaN">
+          <methods />
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.AllKindsOfExtensions.&lt;Yield&gt;d__0&lt;T&gt;" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\Extensions.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.ByteUtils" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\ByteUtils.cs" line-rate="1" branch-rate="1" complexity="26">
+          <methods>
+            <method name="IndexOf" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="CreateByteBasedJumpTable" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="CreateOffsetBasedJumpTable" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="IsPrefix" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetSuffixLength" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.DebugUtils" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\DebugUtils.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="AssertIsNotNull" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="AssertIsNull" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.ProcessExecutor" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\ProcessExecutor.cs" line-rate="1" branch-rate="1" complexity="42">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ExecuteCommandBlocking" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ExecuteCommandBlocking" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="CreatePipe" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="CreateEnvironment" signature="(...)" line-rate="1" branch-rate="1" complexity="12">
+              <lines />
+            </method>
+            <method name="CreateProcess" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ConnectedToChildProcess" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="Dispose" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.ProcessExecutor.NativeMethods" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\ProcessExecutor.cs" line-rate="1" branch-rate="1" complexity="37">
+          <methods>
+            <method name="ExecuteCommandBlocking" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="CreatePipe" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="CreateEnvironment" signature="(...)" line-rate="1" branch-rate="1" complexity="12">
+              <lines />
+            </method>
+            <method name="CreateProcess" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ConnectedToChildProcess" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="Dispose" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.ProcessExecutor.NativeMethods.ProcessOutputPipeStream" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\ProcessExecutor.cs" line-rate="1" branch-rate="1" complexity="7">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ConnectedToChildProcess" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="Dispose" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.ProcessExecutor.NativeMethods.STARTUPINFO" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\ProcessExecutor.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.ProcessLauncher" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\ProcessLauncher.cs" line-rate="1" branch-rate="1" complexity="31">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetOutputOfCommand" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetOutputOfCommand" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetOutputOfCommand" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LaunchProcess" signature="(...)" line-rate="1" branch-rate="1" complexity="18">
+              <lines />
+            </method>
+            <method name="ReadTheStream" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.RegexTraitParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\RegexTraitParser.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ParseTraitsRegexesString" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="ParseRegexTraitPair" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.TestProcessLauncher" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\TestProcessLauncher.cs" line-rate="1" branch-rate="1" complexity="10">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetOutputOfCommand" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetOutputOfCommand" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetOutputOfCommand" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="KillProcess" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LaunchProcessWithDebuggerAttached" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Helpers.Utils" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Helpers\Utils.cs" line-rate="1" branch-rate="1" complexity="11">
+          <methods>
+            <method name="GetTempDirectory" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="DeleteDirectory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="DeleteDirectory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetExtendedPath" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="TimestampMessage" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="SpawnAndWait" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="BinaryFileContainsStrings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ValidateRegex" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ValidateTraitRegexes" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Model.TestCase" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Model\TestCase.cs" line-rate="1" branch-rate="1" complexity="15">
+          <methods>
+            <method name="get_Source" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_FullyQualifiedName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_FullyQualifiedNameWithNamespace" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DisplayName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_CodeFilePath" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_LineNumber" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Traits" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Properties" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Equals" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetHashCode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Model.TestCaseMetaDataProperty" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Model\TestCaseMetaDataProperty.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_NrOfTestCasesInSuite" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_NrOfTestCasesInExecutable" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_FullyQualifiedNameWithoutNamespace" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Model.TestProperty" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Model\TestProperty.cs" line-rate="1" branch-rate="1" complexity="11">
+          <methods>
+            <method name="get_Serialization" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Equals" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="GetHashCode" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Model.TestResult" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Model\TestResult.cs" line-rate="1" branch-rate="1" complexity="15">
+          <methods>
+            <method name="get_TestCase" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ComputerName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ComputerName" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DisplayName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_DisplayName" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Outcome" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Outcome" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ErrorMessage" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ErrorMessage" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ErrorStackTrace" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ErrorStackTrace" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Duration" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Duration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Model.Trait" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Model\Trait.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Value" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Runners.CommandLineGenerator" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Runners\CommandLineGenerator.cs" line-rate="1" branch-rate="1" complexity="55">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetCommandLines" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetFinalCommandLines" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="JoinTestsUpToMaxLength" signature="(...)" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="GetAdditionalUserParameter" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetCatchExceptionsParameter" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetBreakOnFailureParameter" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetAlsoRunDisabledTestsParameter" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetShuffleTestsParameter" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetTestsRepetitionsParameter" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetFilterForSuitesRunningAllTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="AllTestCasesOfExecutableAreRun" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetTestCasesNotRunBySuite" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetSuitesRunningAllTests" signature="()" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="GetAllSuitesOfTestCasesToRun" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetAllMatchingTestCases" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetTestsuiteName" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestCases" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_CommandLine" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Runners.CommandLineGenerator.Args" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Runners\CommandLineGenerator.cs" line-rate="1" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_TestCases" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_CommandLine" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Runners.ParallelTestRunner" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Runners\ParallelTestRunner.cs" line-rate="1" branch-rate="1" complexity="17">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetTestsSplitter" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Runners.PreparingTestRunner" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Runners\PreparingTestRunner.cs" line-rate="1" branch-rate="1" complexity="26">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="SafeRunBatch" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="RunBatch" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="ComputeThreadName" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Runners.SequentialTestRunner" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Runners\SequentialTestRunner.cs" line-rate="1" branch-rate="1" complexity="47">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="RunTestsFromExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="16">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LogExecutionError" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="TryRunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="RunTestExecutableWithNewFramework" signature="(...)" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Runners.TestResultCollector" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Runners\TestResultCollector.cs" line-rate="1" branch-rate="1" complexity="27">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="CollectTestResults" signature="(...)" line-rate="1" branch-rate="1" complexity="12">
+              <lines />
+            </method>
+            <method name="CollectResultsFromConsoleOutput" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="CreateMissingResults" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="CreateFixtureMethodResults" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReportSuspiciousTestCases" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.DurationBasedTestsSplitter" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\DurationBasedTestsSplitter.cs" line-rate="1" branch-rate="1" complexity="15">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="SplitTestcases" signature="()" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="GetIndexOfListWithShortestDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.GtaTestDurations" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\TestDurationSerializer.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name="get_Executable" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Executable" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestDurations" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.InvalidTestDurationsException" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\TestDurationSerializer.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.NumberBasedTestsSplitter" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\NumberBasedTestsSplitter.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="SplitTestcases" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.SchedulingAnalyzer" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\SchedulingAnalyzer.cs" line-rate="1" branch-rate="1" complexity="15">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ExpectedTestcaseDurations" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ActualTestcaseDurations" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="AddExpectedDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="AddActualDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="PrintStatisticsToDebugOutput" signature="()" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.TestDuration" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\TestDurationSerializer.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Test" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Test" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Duration" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Duration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Scheduling.TestDurationSerializer" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Scheduling\TestDurationSerializer.cs" line-rate="1" branch-rate="1" complexity="42">
+          <methods>
+            <method name="get_Lock" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ReadTestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="UpdateTestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReadTestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="UpdateTestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="12">
+              <lines />
+            </method>
+            <method name="LoadTestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="SaveTestDurations" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GroupTestResultsByExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetDurationsFile" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Settings.GoogleTestAdapterSettingsExtensions" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Settings\IGoogleTestAdapterSettings.cs" line-rate="1" branch-rate="1" complexity="56">
+          <methods>
+            <method name="GetUnsetValuesFrom" signature="(...)" line-rate="1" branch-rate="1" complexity="56">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Settings.RegexTraitPair" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Settings\SettingsWrapper.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_Regex" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Trait" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Settings.RunSettings" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Settings\RunSettings.cs" line-rate="1" branch-rate="1" complexity="88">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ProjectRegex" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ProjectRegex" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_PrintTestOutput" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_PrintTestOutput" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializePrintTestOutput" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestDiscoveryRegex" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestDiscoveryRegex" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeTestDiscoveryRegex" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestDiscoveryTimeoutInSeconds" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestDiscoveryTimeoutInSeconds" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeTestDiscoveryTimeoutInSeconds" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_WorkingDir" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_WorkingDir" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeWorkingDir" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_PathExtension" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_PathExtension" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializePathExtension" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_CatchExceptions" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_CatchExceptions" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeCatchExceptions" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_BreakOnFailure" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_BreakOnFailure" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeBreakOnFailure" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_RunDisabledTests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_RunDisabledTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeRunDisabledTests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_NrOfTestRepetitions" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_NrOfTestRepetitions" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeNrOfTestRepetitions" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShowFixtureMethodNode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ShowFixtureMethodNode" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeShowFixtureMethodNode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShuffleTests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ShuffleTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeShuffleTests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShuffleTestsSeed" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ShuffleTestsSeed" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeShuffleTestsSeed" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TraitsRegexesBefore" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TraitsRegexesBefore" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeTraitsRegexesBefore" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TraitsRegexesAfter" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TraitsRegexesAfter" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeTraitsRegexesAfter" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestNameSeparator" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestNameSeparator" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeTestNameSeparator" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DebugMode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_DebugMode" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeDebugMode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TimestampOutput" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TimestampOutput" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeTimestampOutput" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShowReleaseNotes" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ShowReleaseNotes" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeShowReleaseNotes" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ParseSymbolInformation" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ParseSymbolInformation" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeParseSymbolInformation" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_AdditionalTestDiscoveryParam" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_AdditionalTestDiscoveryParam" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeAdditionalTestDiscoveryParam" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_AdditionalTestExecutionParam" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_AdditionalTestExecutionParam" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeAdditionalTestExecutionParam" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ParallelTestExecution" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ParallelTestExecution" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeParallelTestExecution" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_MaxNrOfThreads" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_MaxNrOfThreads" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeMaxNrOfThreads" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_BatchForTestSetup" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_BatchForTestSetup" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeBatchForTestSetup" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_BatchForTestTeardown" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_BatchForTestTeardown" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeBatchForTestTeardown" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_KillProcessesOnCancel" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_KillProcessesOnCancel" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeKillProcessesOnCancel" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_UseNewTestExecutionFramework" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_UseNewTestExecutionFramework" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeUseNewTestExecutionFramework" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DebuggingNamedPipeId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_DebuggingNamedPipeId" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldSerializeDebuggingNamedPipeId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Settings.SettingsSerializationContainer" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Settings\SettingsSerializationContainer.cs" line-rate="1" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_SolutionSettings" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_SolutionSettings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_SettingsList" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_SettingsList" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Settings.SettingsWrapper" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Settings\SettingsWrapper.cs" line-rate="1" branch-rate="1" complexity="87">
+          <methods>
+            <method name="get_RegexTraitParser" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_RegexTraitParser" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestPropertySettingsContainer" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Clone" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ExecuteWithSettingsForExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="CheckCorrectUsage" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetPathExtension" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetUserParameters" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetBatchForTestSetup" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetBatchForTestTeardown" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetWorkingDir" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReplacePlaceholders" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReplacePlaceholders" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_DebuggingNamedPipeId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_UseNewTestExecutionFramework" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_PrintTestOutput" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestDiscoveryRegex" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_TestDiscoveryTimeoutInSeconds" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="get_WorkingDir" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_PathExtension" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_TraitsRegexesBefore" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_TraitsRegexesAfter" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_TestNameSeparator" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_ParseSymbolInformation" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DebugMode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TimestampOutput" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShowReleaseNotes" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_AdditionalTestExecutionParam" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_AdditionalTestDiscoveryParam" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_BatchForTestSetup" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_BatchForTestTeardown" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_KillProcessesOnCancel" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ParallelTestExecution" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_MaxNrOfThreads" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="get_CatchExceptions" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_BreakOnFailure" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_RunDisabledTests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_NrOfTestRepetitions" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="get_ShowFixtureMethodNode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShuffleTests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ShuffleTestsSeed" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.Settings.SingleSettings" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\Settings\SettingsSerializationContainer.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_Settings" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Settings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.ListTestsParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\ListTestsParser.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ParseListTestsOutput" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.MethodSignatureCreator" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\MethodSignatureCreator.cs" line-rate="1" branch-rate="1" complexity="13">
+          <methods>
+            <method name="GetTestMethodSignatures" signature="(...)" line-rate="1" branch-rate="1" complexity="5">
+              <lines />
+            </method>
+            <method name="GetTypedTestMethodSignatures" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetParameterizedTestMethodSignature" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetTestMethodSignature" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetFixtureMethodSignature" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.NewTestCaseResolver" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\NewTestCaseResolver.cs" line-rate="1" branch-rate="1" complexity="17">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="FindTestCaseLocation" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="LoadSymbolsFromImports" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="AddSymbolsFromBinary" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="DoFindTestCaseLocation" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToTestCaseLocation" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetTraits" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.StreamingListTestsParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\StreamingListTestsParser.cs" line-rate="1" branch-rate="1" complexity="20">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ReportLine" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="CreateDescriptor" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="GetDisplayName" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetEnclosedTypeParam" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestCaseDescriptor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestCaseDescriptor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.StreamingListTestsParser.TestCaseDescriptorCreatedEventArgs" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\StreamingListTestsParser.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_TestCaseDescriptor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestCaseDescriptor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.TestCaseDescriptor" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\TestCaseDescriptor.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_Suite" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_FullyQualifiedName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DisplayName" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestType" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.TestCaseFactory" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\TestCaseFactory.cs" line-rate="1" branch-rate="1" complexity="72">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="CreateTestCases" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="NewCreateTestcases" signature="(...)" line-rate="1" branch-rate="1" complexity="14">
+              <lines />
+            </method>
+            <method name="OldCreateTestCases" signature="(...)" line-rate="1" branch-rate="1" complexity="16">
+              <lines />
+            </method>
+            <method name="CheckProcessExitCode" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="GetTestCaseLocations" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="AddFixtureMethodTestCases" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="CreateTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="CreateTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="CreateTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetTestSignatureNamespace" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="StripTestSymbolNamespace" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetFinalTraits" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.TestCaseLocation" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\TestCaseLocation.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_Traits" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestCases.TestCaseResolver" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestCases\TestCaseResolver.cs" line-rate="1" branch-rate="1" complexity="12">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ResolveAllTestCases" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="FindTestCaseLocationsInBinary" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ToTestCaseLocation" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestResults.ErrorMessageParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestResults\ErrorMessageParser.cs" line-rate="1" branch-rate="1" complexity="39">
+          <methods>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ErrorMessage" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ErrorMessage" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ErrorStackTrace" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ErrorStackTrace" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ErrorMessages" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Parse" signature="()" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="CreateStackTraceEntry" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="SplitConsoleOutput" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="HandleSingleFailure" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="HandleMultipleFailures" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="CreateErrorMessageAndStacktrace" signature="(...)" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestResults.StandardOutputTestResultParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestResults\StandardOutputTestResultParser.cs" line-rate="1" branch-rate="1" complexity="44">
+          <methods>
+            <method name="get_CrashedTestCase" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_CrashedTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetTestResults" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="CreateTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="18">
+              <lines />
+            </method>
+            <method name="SplitLineIfNecessary" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ParseDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ParseDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="NormalizeDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="CreatePassedTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="CreateFailedTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="FindIndexOfNextTestcase" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="FindTestcase" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="FindTestcase" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="IsRunLine" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="IsPassedLine" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="IsFailedLine" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RemovePrefix" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestResults.StreamingStandardOutputTestResultParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestResults\StreamingStandardOutputTestResultParser.cs" line-rate="1" branch-rate="1" complexity="66">
+          <methods>
+            <method name="get_CrashedTestCase" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_CrashedTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestResults" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_XmlTestResults" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_XmlTestResults" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetXMLResults" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ReportLine" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="DoReportLine" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="Flush" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReportTestStart" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReportTestResult" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReportFixtureMethodFailure" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="CreateTestResult" signature="()" line-rate="1" branch-rate="1" complexity="34">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestResults.XmlTestResultParser" filename="D:\a\_work\1\s\GoogleTestAdapter\Core\TestResults\XmlTestResultParser.cs" line-rate="1" branch-rate="1" complexity="29">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetTestResults" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ParseTestResults" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="TryParseTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ParseTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetQualifiedName" signature="(...)" line-rate="1" branch-rate="1" complexity="12">
+              <lines />
+            </method>
+            <method name="ParseDuration" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+      </classes>
+    </package>
+    <package name="GoogleTestAdapter.TestAdapter" line-rate="0" branch-rate="0" complexity="317">
+      <classes>
+        <class name="GoogleTestAdapter.TestAdapter.CommonFunctions" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\CommonFunctions.cs" line-rate="1" branch-rate="1" complexity="16">
+          <methods>
+            <method name="ReportErrors" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="CreateEnvironment" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="LogVisualStudioVersion" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.DataConversionExtensions" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\DataConversionExtensions.cs" line-rate="1" branch-rate="1" complexity="14">
+          <methods>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="ToVsTestCase" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ToTrait" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToVsTrait" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToVsTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToVsTestOutcome" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetSeverity" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.AttachDebuggerMessage" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\AttachDebuggerMessage.cs" line-rate="1" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_ProcessId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ProcessId" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_DebuggerAttachedSuccessfully" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_DebuggerAttachedSuccessfully" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ErrorMessage" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ErrorMessage" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.DebuggedProcessLauncher" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\DebuggedProcessLauncher.cs" line-rate="1" branch-rate="1" complexity="10">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LaunchProcessWithDebuggerAttached" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LaunchProcessWithDebuggerAttached" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.MessageBasedDebuggerAttacher" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\MessageBasedDebuggerAttacher.cs" line-rate="1" branch-rate="1" complexity="6">
+          <methods>
+            <method name="GetPipeName" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="AttachDebugger" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.VsTestFrameworkLogger" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\VsTestFrameworkLogger.cs" line-rate="1" branch-rate="1" complexity="6">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Log" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LogSafe" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.VsTestFrameworkReporter" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\VSTestFrameworkReporter.cs" line-rate="1" branch-rate="1" complexity="27">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ReportTestsFound" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReportTestsStarted" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ReportTestResults" signature="(...)" line-rate="1" branch-rate="1" complexity="12">
+              <lines />
+            </method>
+            <method name="TestReportingNeedsToBeThrottled" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ReportTestResult" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="AllTestsFinished" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.VsVersionExtensions" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\VsVersion.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="Year" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Framework.VsVersionUtils" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Framework\VsVersion.cs" line-rate="1" branch-rate="1" complexity="31">
+          <methods>
+            <method name="GetVisualStudioVersion" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetVsVersionFromProcess" signature="()" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="FindVsOrVsTestConsoleExe" signature="()" line-rate="1" branch-rate="1" complexity="10">
+              <lines />
+            </method>
+            <method name="GetVsVersionFromVersionString" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Helpers.ParentProcessUtils" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Helpers\ParentProcessUtils.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="GetParentProcess" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetParentProcess" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetParentProcess" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Helpers.TestCaseFilter" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Helpers\TestCaseFilter.cs" line-rate="1" branch-rate="1" complexity="30">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Filter" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="Matches" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="InitProperties" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="PropertyProvider" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="PropertyValueProvider" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="GetFilterExpression" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="GetTraitValues" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="Matches" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ValidateTraitValue" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Helpers.Throttle" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Helpers\Throttle.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Execute" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.GlobalRunSettingsProvider" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\GlobalRunSettingsProvider.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name="get_RunSettings" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_RunSettings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.InvalidRunSettingsException" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\RunSettingsContainer.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.RunSettingsContainer" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\RunSettingsContainer.cs" line-rate="1" branch-rate="1" complexity="28">
+          <methods>
+            <method name="get_SolutionSettings" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="set_SolutionSettings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_ProjectSettings" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_ProjectSettings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="GetSettingsForExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToXml" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="LoadFromXml" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="GetUnsetValuesFrom" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="ValidateOne&lt;T&gt;" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ValidateOne&lt;T&gt;" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+            <method name="ValidateAdditionalRunSettingsConstraints" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.RunSettingsProvider" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\RunSettingsProvider.cs" line-rate="1" branch-rate="1" complexity="9">
+          <methods>
+            <method name="get_SettingsContainer" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_SettingsContainer" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Name" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Load" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.TestPropertySettings" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\TestPropertySettings.cs" line-rate="1" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_Environment" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Environment" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_WorkingDirectory" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_WorkingDirectory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.TestPropertySettingsContainer" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\TestPropertySettingsContainer.cs" line-rate="1" branch-rate="1" complexity="25">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Tests" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Tests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ToXml" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="TryGetSettings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="EnsureTestPropertiesMap" signature="()" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Name" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Value" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Value" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Name" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Command" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Command" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Environment" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Environment" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_WorkingDirectory" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_WorkingDirectory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.TestPropertySettingsContainer.EnvVar" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\TestPropertySettingsContainer.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Name" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Value" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Value" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.TestPropertySettingsContainer.TestProperties" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\TestPropertySettingsContainer.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Name" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Command" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Command" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_Environment" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_Environment" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_WorkingDirectory" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_WorkingDirectory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.Settings.TestPropertySettingsProvider" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\Settings\TestPropertySettingsProvider.cs" line-rate="1" branch-rate="1" complexity="9">
+          <methods>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="get_TestPropertySettings" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="set_TestPropertySettings" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Load" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.TestDiscoverer" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\TestDiscoverer.cs" line-rate="1" branch-rate="1" complexity="12">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="DiscoverTests" signature="(...)" line-rate="1" branch-rate="1" complexity="6">
+              <lines />
+            </method>
+            <method name="IsSupportedVisualStudioVersion" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+        <class name="GoogleTestAdapter.TestAdapter.TestExecutor" filename="D:\a\_work\1\s\GoogleTestAdapter\TestAdapter\TestExecutor.cs" line-rate="1" branch-rate="1" complexity="53">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="RunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="Cancel" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="TryRunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="TryRunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="StartStopWatchAndInitEnvironment" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="InitOrRefreshEnvironment" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="AbleToRun" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetAllTestCasesInExecutables" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="AddTestCasesOfExecutable" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="GetAllTraitNames" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
+              <lines />
+            </method>
+            <method name="IsVisualStudioProcessAvailable" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="DoRunTests" signature="(...)" line-rate="1" branch-rate="1" complexity="8">
+              <lines />
+            </method>
+            <method name="ShouldAttachToTestHost" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name="ShouldAttachToTestHost" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines />
+            </method>
+          </methods>
+          <lines />
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>

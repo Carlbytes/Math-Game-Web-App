@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\carlsMathGame",
+    "\\carlsMathGame\\testingProgram"
   ],
+  "SelectedNode": "\\carlsMathGame\\run_tests.cpp",
   "PreviewInSolutionExplorer": false
 }

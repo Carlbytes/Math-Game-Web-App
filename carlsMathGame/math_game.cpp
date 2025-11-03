@@ -1,10 +1,25 @@
-#include <iostream>  // For console input/output (cin, cout)
-#include <random>    // For modern random number generation
-#include <vector>    // To store the answer orbs
-#include <string>    // To use std::string
-#include <algorithm> // For std::shuffle
-#include <ctime>     // To seed the random number generator
+#include <iostream>
+#include <random>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <ctime>
+#include <limits> // For std::cin.ignore
+#include <thread>
+#include <chrono>
 
+// A helper struct to pass problem data around easily
+struct MathProblem {
+    int num1;
+    int num2;
+    char op;
+    int correctAnswer;
+};
+
+// ===================================================================
+// .Random System (SOF-15)
+// This utility function is the core of the random system.
+// ===================================================================
 /**
  * @brief Generates a random integer within a specified range [min, max].
  * @param rng A reference to the random number engine.
@@ -13,124 +28,212 @@
  * @return A random integer in the range.
  */
 int getRandomInt(std::mt19937& rng, int min, int max) {
-    // Create a distribution that will produce uniform integers in the given range
     std::uniform_int_distribution<int> dist(min, max);
     return dist(rng);
 }
 
+// ===================================================================
+// Adding System (SOF-21)
+// Generates the logic for an addition problem.
+// ===================================================================
+MathProblem generateAdditionProblem(std::mt19937& rng) {
+    int num1 = getRandomInt(rng, 1, 20);
+    int num2 = getRandomInt(rng, 1, 20);
+    int answer = num1 + num2;
+    return MathProblem{ num1, num2, '+', answer };
+}
+
+// ===================================================================
+// Subtraction System (SOF-22)
+// Generates the logic for a subtraction problem.
+// ===================================================================
+MathProblem generateSubtractionProblem(std::mt19937& rng) {
+    int num1 = getRandomInt(rng, 1, 20);
+    int num2 = getRandomInt(rng, 1, 20);
+    int answer = num1 - num2;
+    return MathProblem{ num1, num2, '-', answer };
+}
+
+// ===================================================================
+// Multiplication System (SOF-24)
+// Generates the logic for a multiplication problem.
+// ===================================================================
+MathProblem generateMultiplicationProblem(std::mt19937& rng) {
+    int num1 = getRandomInt(rng, 1, 20);
+    int num2 = getRandomInt(rng, 1, 20);
+    int answer = num1 * num2;
+    return MathProblem{ num1, num2, '*', answer };
+}
+
+// ===================================================================
+// Division System (SOF-23)
+// Generates the logic for a division problem (ensuring whole numbers).
+// ===================================================================
+MathProblem generateDivisionProblem(std::mt19937& rng) {
+    int num2 = getRandomInt(rng, 2, 12); // Divisor
+    int answer = getRandomInt(rng, 2, 12); // Result
+    int num1 = num2 * answer; // Dividend
+    return MathProblem{ num1, num2, '/', answer };
+}
+
 /**
- * @brief Handles a single round of the math game.
+ * @brief Main dispatcher for the ".Random System" (SOF-15).
+ * It randomly selects one of the specific problem systems.
  * @param rng A reference to the random number engine.
- * @return True if the user was correct, false otherwise.
+ * @return A complete MathProblem struct.
  */
-bool playRound(std::mt19937& rng) {
-    // 1. Generate the problem
-    const char operators[] = { '+', '-', '*', '/' };
-    char op = operators[getRandomInt(rng, 0, 3)]; // Pick a random operator
+MathProblem generateProblem(std::mt19937& rng) {
+    int problemType = getRandomInt(rng, 0, 3); // 0=Add, 1=Sub, 2=Mul, 3=Div
 
-    int num1, num2;
-    int correctAnswer;
-
-    // Handle division separately to ensure whole numbers
-    if (op == '/') {
-        // To avoid fractions, we'll work backwards
-        num2 = getRandomInt(rng, 2, 12); // Divisor (avoid 0 or 1)
-        correctAnswer = getRandomInt(rng, 2, 12); // The result
-        num1 = num2 * correctAnswer; // The dividend
+    switch (problemType) {
+    case 0:  return generateAdditionProblem(rng);
+    case 1:  return generateSubtractionProblem(rng);
+    case 2:  return generateMultiplicationProblem(rng);
+    case 3:  return generateDivisionProblem(rng);
+    default: return generateAdditionProblem(rng); // Fallback
     }
-    else {
-        // For +, -, *
-        num1 = getRandomInt(rng, 1, 20);
-        num2 = getRandomInt(rng, 1, 20);
+}
 
-        switch (op) {
-        case '+': correctAnswer = num1 + num2; break;
-        case '-': correctAnswer = num1 - num2; break;
-        case '*': correctAnswer = num1 * num2; break;
-            // Division is handled above, but default is good practice
-        default:  correctAnswer = 0; break;
-        }
-    }
-
-    // 2. Generate the 3 answer orbs
-    // Per your requirements: Z, Z - (1-5), Z + (1-5)
+/**
+ * @brief Generates the three answer orbs (correct + 2 distractors).
+ * This is also part of the ".Random System" (SOF-15).
+ * @param rng A reference to the random number engine.
+ * @param correctAnswer The correct answer (Z).
+ * @return A shuffled vector of 3 integer choices.
+ */
+std::vector<int> generateOrbs(std::mt19937& rng, int correctAnswer) {
     int offset1 = getRandomInt(rng, 1, 5);
     int offset2 = getRandomInt(rng, 1, 5);
 
-    // Make sure offsets don't accidentally cancel out or create duplicates
-    // e.g., if offset1 is 2, don't make offset2 -2
-    while (offset1 == offset2 || (correctAnswer - offset1) == (correctAnswer + offset2)) {
+    // Ensure offsets aren't the same
+    while (offset1 == offset2) {
         offset2 = getRandomInt(rng, 1, 5);
     }
 
     std::vector<int> orbs;
-    orbs.push_back(correctAnswer);           // The correct answer (Z)
-    orbs.push_back(correctAnswer - offset1); // Distractor 1
-    orbs.push_back(correctAnswer + offset2); // Distractor 2
+    orbs.push_back(correctAnswer);
+    orbs.push_back(correctAnswer - offset1);
+    orbs.push_back(correctAnswer + offset2);
 
-    // 3. Shuffle the orbs
-    // This is vital so the correct answer isn't always in the same place!
+    // Shuffle the orbs
     std::shuffle(orbs.begin(), orbs.end(), rng);
+    return orbs;
+}
 
-    // 4. Display the problem and orbs
+/**
+ * @brief Handles a single round of the math game.
+ * This function now coordinates the other systems.
+ * @param rng A reference to the random number engine.
+ * @return True if the user was correct, false otherwise.
+ */
+bool playRound(std::mt19937& rng) {
+    // 1. Generate the problem (using the new modular functions)
+    MathProblem problem = generateProblem(rng);
+
+    // 2. Generate the answer orbs
+    std::vector<int> orbs = generateOrbs(rng, problem.correctAnswer);
+
+    // 3. Display the problem and orbs
     std::cout << "=================================\n";
     std::cout << "What is... \n\n";
-    std::cout << "  " << num1 << " " << op << " " << num2 << " = ??\n\n";
-
+    std::cout << "  " << problem.num1 << " " << problem.op << " " << problem.num2 << " = ??\n\n";
     std::cout << "Choose an orb:\n";
     for (size_t i = 0; i < orbs.size(); ++i) {
         std::cout << "  " << (i + 1) << ". [ " << orbs[i] << " ]\n";
     }
     std::cout << "=================================\n";
 
-    // 5. Get user input
+    // 4. Get user input
     int userChoice;
     std::cout << "Your choice (1, 2, or 3): ";
     while (!(std::cin >> userChoice) || userChoice < 1 || userChoice > 3) {
         std::cout << "Invalid input. Please enter 1, 2, or 3: ";
-        std::cin.clear(); // Clear the error flag
-        std::cin.ignore(10000, '\n'); // Discard the bad input
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
-    // 6. Check the answer
-    // We adjust userChoice (1-based) to an index (0-based)
+    // 5. Check the answer
     int chosenAnswer = orbs[userChoice - 1];
 
-    if (chosenAnswer == correctAnswer) {
+    if (chosenAnswer == problem.correctAnswer) {
         std::cout << "\n>>> Correct! <<<\n\n";
         return true;
     }
     else {
-        std::cout << "\n>>> Wrong! The correct answer was " << correctAnswer << ". <<<\n\n";
+        std::cout << "\n>>> Wrong! The correct answer was " << problem.correctAnswer << ". <<<\n\n";
         return false;
     }
 }
 
+// ===================================================================
+// Exit System (SOF-26)
+// Handles the logic for asking the user to play again.
+// ===================================================================
+bool askToPlayAgain() {
+    char playAgain;
+    std::cout << "Play another round? (y/n): ";
+    std::cin >> playAgain;
+
+    // Clear any extra input
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    return (playAgain == 'y' || playAgain == 'Y');
+}
+
+/**
+ * @brief Initializes the random number generator.
+ * Part of the ".Random System" (SOF-15).
+ */
+std::mt19937 initializeRNG() {
+    // Use a fixed seed (42) for predictable testing
+    // return std::mt19937(42); 
+
+    // Use a time-based seed for a real game
+    return std::mt19937(static_cast<unsigned int>(std::time(0)));
+}
+
+// ===================================================================
+// Main Game Loop
+// ===================================================================
+#ifndef RUNNING_TESTS
 int main() {
     // 1. Seed the random number generator
-    // Use a fixed seed (e.g., 42) for testing!
-    // std::mt19937 rng(static_cast<unsigned int>(std::time(0))); // <-- Your original
-    std::mt19937 rng(42); // <-- TEMPORARY test seed
+    std::mt19937 rng = initializeRNG();
 
     std::cout << "Welcome to the C++ Math Orb Game!\n";
     int score = 0;
     int rounds = 0;
+    bool keepPlaying = true;
 
-    char playAgain = 'y';
-    while (playAgain == 'y' || playAgain == 'Y') {
+    while (keepPlaying) {
         rounds++;
         if (playRound(rng)) {
             score++;
         }
 
         std::cout << "Your score: " << score << " / " << rounds << "\n";
-        std::cout << "Play another round? (y/n): ";
-        std::cin >> playAgain;
 
-        // Clear any extra input
-        std::cin.ignore(10000, '\n');
+        // 2. Use the "Exit System"
+        keepPlaying = askToPlayAgain();
     }
 
     std::cout << "Thanks for playing! Final score: " << score << " / " << rounds << "\n";
+
+
+	std::cout << "Program auto will exit in 5 seconds...\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << "4...\n";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << "3...\n";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << "2...\n";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << "1...\n";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << "Goodbye!\n";
+
+
+
     return 0;
 }
+#endif // RUNNING_TESTS
