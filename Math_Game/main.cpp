@@ -27,6 +27,26 @@ crow::response load_static_file(const std::string& path) {
 }
 
 // Middleware to check for a valid session token
+// Testable helper: check authorization for a request. Returns true if request may proceed,
+// returns false and sets `res` to a 401 Unauthorized response when not allowed.
+bool auth_check(const std::shared_ptr<Database>& db_ptr,
+                const std::unordered_set<std::string>& public_paths,
+                const std::string& url,
+                const std::string& auth_header,
+                crow::response& res) {
+    if (public_paths.count(url)) {
+        return true;
+    }
+    auto token = auth_header;
+    if (token.rfind("Bearer ", 0) != 0 || !db_ptr->validate_session(token.substr(7))) {
+        res.code = 401;
+        res.body = "{\"error\": \"Unauthorized\"}";
+        res.end();
+        return false;
+    }
+    return true;
+}
+
 struct AuthMiddleware {
     std::shared_ptr<Database> db_ptr;
     
@@ -42,21 +62,16 @@ struct AuthMiddleware {
     struct context {};
 
     void before_handle(crow::request& req, crow::response& res, context& /*ctx*/) {
-        if (public_paths.count(req.url)) {
-            return; 
-        }
-
+        // Delegate actual checking to testable helper
         auto token = req.get_header_value("Authorization");
-        if (token.rfind("Bearer ", 0) != 0 || !db_ptr->validate_session(token.substr(7))) {
-            res.code = 401; 
-            res.body = "{\"error\": \"Unauthorized\"}";
-            res.end(); 
-        }
+        auth_check(db_ptr, public_paths, req.url, token, res);
     }
     void after_handle(crow::request& /*req*/, crow::response& /*res*/, context& /*ctx*/) {}
 };
 
 
+// When building unit tests we define UNIT_TESTING and skip the server main.
+#ifndef UNIT_TESTING
 int main() {
     //initialize game logic
     Game::initialize(); 
@@ -122,4 +137,5 @@ int main() {
     // Start the server
     app.port(18080).multithreaded().run();
 }
+#endif
 

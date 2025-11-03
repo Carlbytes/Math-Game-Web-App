@@ -22,6 +22,8 @@ public:
     std::string create_session(const std::string& username);
     bool validate_session(const std::string& token);
     void clear_all_sessions();
+    // Test helper: force-close the sqlite DB to simulate error conditions in tests
+    void force_close_for_tests();
 
 private:
     sqlite3* db; // The database connection object
