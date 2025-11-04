@@ -2,7 +2,7 @@
 
 This is a simple web-based math game that demonstrates a modern web architecture:
 
-- Frontend: A lightweight, responsive HTML, CSS, and JavaScript interface (served from static/index.html).
+- Frontend: A lightweight, and responsive Web Interface, Served by the back end, Via Crow
 
 - Backend: A high-performance C++ server using the Crow C++ micro-framework.
 
