@@ -207,3 +207,12 @@ void Database::clear_all_sessions() {
     }
 }
 
+// Test helper: force-close the sqlite DB to simulate failures
+void Database::force_close_for_tests() {
+    std::lock_guard<std::mutex> lock(db_mutex);
+    if (db) {
+        sqlite3_close(db);
+        db = nullptr;
+    }
+}
+
