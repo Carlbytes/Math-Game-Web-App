@@ -1,14 +1,9 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-// --- THIS IS THE CRITICAL PART ---
-// 1. Define the flag to disable your game's main()
 #define RUNNING_TESTS 
 
-// 2. Include your entire game file.
-//    You may need to fix this path!
-//    This path assumes your solution file (.sln) is in the 'SoftwareDevelopment3GP' folder.
-#include "C:\CollegeStuff\Y3 Repos\SoftwareDevelopment3GP\carlsMathGame\math_game.cpp" 
+#include "C:\College Stuff\Year Three\Y3 Reposits\SoftwareDev3Agile\SoftwareDevelopment3GP\carlsMathGame\math_game.cpp" 
 // ---------------------------------
 
 
