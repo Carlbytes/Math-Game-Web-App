@@ -5,63 +5,68 @@
 int main() {
     crow::SimpleApp app;
 
-    CROW_ROUTE(app, "/")
- ([](const crow::request&, crow::response& res){
-     std::filesystem::path fullPath = std::filesystem::path("www") / "index.html";
-     std::cout << "Trying to open: " << std::filesystem::absolute(fullPath) << std::endl;
-
-     std::ifstream in(fullPath, std::ios::in | std::ios::binary);
-     if (!in) {
-         res.code = 404;
-         res.end("Not Found");
-         return;
-     }
-
-
-
-     std::ostringstream contents;
-     contents << in.rdbuf();
-     res.set_header("Content-Type", "text/html");
-     res.write(contents.str());
-     res.end();
- });
-
-    // Handle all other paths
-    CROW_ROUTE(app, "/<path>")
-    ([](const crow::request&, crow::response& res, std::string path){
-        if (path.empty()) path = "index.html"; // fallback
-        std::filesystem::path fullPath = std::filesystem::path("www") / path;
-        std::cout << "Trying to open: " << std::filesystem::absolute(fullPath) << std::endl;
-
-        std::ifstream in(fullPath, std::ios::in | std::ios::binary);
+    // Serve main menu HTML
+    CROW_ROUTE(app, "/")([](const crow::request&, crow::response& res){
+        std::ifstream in("www/index.html");
         if (!in) {
             res.code = 404;
-            res.end("Not Found");
+            res.end("Main menu not found");
             return;
         }
-
         std::ostringstream contents;
         contents << in.rdbuf();
+        res.set_header("Content-Type", "text/html");
         res.write(contents.str());
         res.end();
     });
 
-    CROW_ROUTE(app, "/api/start")([](){
-    crow::json::wvalue x;
-    x["status"] = "Game started";
-    return x;
-});
+    // Serve Difficulty Settings page
+    CROW_ROUTE(app, "/difficulty")([](const crow::request&, crow::response& res){
+        std::ifstream in("www/DifficultySettings.html");
+        if (!in) {
+            res.code = 404;
+            res.end("Difficulty page not found");
+            return;
+        }
+        std::ostringstream contents;
+        contents << in.rdbuf();
+        res.set_header("Content-Type", "text/html");
+        res.write(contents.str());
+        res.end();
+    });
 
-    CROW_ROUTE(app, "/api/settings")([](){
+    // API: Start game
+    CROW_ROUTE(app, "/api/start")([](){
         crow::json::wvalue x;
-        x["status"] = "Opened Difficulty settings";
+        x["status"] = "Game started";
         return x;
     });
 
+    // API: Set difficulty
+    CROW_ROUTE(app, "/api/setDifficulty/<string>")([](const std::string& level){
+        crow::json::wvalue x;
+        x["difficulty"] = level;
+        return x;
+    });
+
+    // API: High scores
+    CROW_ROUTE(app, "/api/highscores")([](){
+        crow::json::wvalue x;
+        x["scores"] = std::vector<int> {100, 90, 80};
+        return x;
+    });
+
+    // API: Quit
     CROW_ROUTE(app, "/api/quit")([](){
         crow::json::wvalue x;
-        x["status"] = "Quit requested";
+        x["status"] = "Game exited";
         return x;
+    });
+
+    // Optional: Favicon suppression
+    CROW_ROUTE(app, "/favicon.ico")([](const crow::request&, crow::response& res){
+        res.code = 204;
+        res.end();
     });
 
     app.port(8081).multithreaded().run();
