@@ -10,7 +10,7 @@ int main() {
 
     // Serve the difficulty.html page
     CROW_ROUTE(app, "/")([](const crow::request&, crow::response& res){
-    std::filesystem::path fullPath = std::filesystem::path("www") / "DifficultySettings.html";
+    std::filesystem::path fullPath = std::filesystem::path("static") / "DifficultySettings.html";
         std::ifstream in(fullPath, std::ios::in | std::ios::binary);
         if (!in) {
             res.code = 404;
@@ -29,6 +29,7 @@ int main() {
     ([](const std::string& level){
         crow::json::wvalue x;
         x["difficulty"] = level;
+        std::cout << "Difficulty set to: " << level << std::endl;
         return x;
     });
 

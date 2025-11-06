@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game - Medium</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="container" id="game-container">
+        <h2>Medium Mode</h2>
+        <div id="question">Loading question...</div>
+        
+        <div id="answer-container">
+            <input type="number" id="answer-input" placeholder="Your answer">
+            <button id="submit-answer">Submit</button>
+        </div>
+        
+        <div id="message"></div>
+        <button onclick="window.location.href='/menu'" style="margin-top: 1rem;">Back to Menu</button>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('math_game_token');
+        if (!token) {
+            window.location.href = '/';
+        }
+
+        const questionEl = document.getElementById('question');
+        const answerInput = document.getElementById('answer-input');
+        const submitButton = document.getElementById('submit-answer');
+        const messageEl = document.getElementById('message');
+        
+        let correctAnswer = 0;
+
+        function handleAuthError(response) {
+            if (response.status === 401) {
+                localStorage.removeItem('math_game_token');
+                window.location.href = '/';
+                return true;
+            }
+            return false;
+        }
+
+        async function getNewQuestion() {
+            messageEl.textContent = '';
+            answerInput.value = '';
+            questionEl.textContent = 'Loading...';
+
+            // UPDATED API PATH
+            const res = await fetch('/api/medium/question', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (handleAuthError(res)) return;
+
+            const data = await res.json();
+            questionEl.textContent = data.question;
+            correctAnswer = data.answer;
+        }
+
+        async function checkAnswer() {
+            const userAnswer = parseInt(answerInput.value, 10);
+            if (isNaN(userAnswer)) {
+                messageEl.textContent = 'Please enter a number.';
+                messageEl.className = 'error';
+                return;
+            }
+
+            // UPDATED API PATH
+            const res = await fetch('/api/medium/answer', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_answer: userAnswer,
+                    correct_answer: correctAnswer
+                })
+            });
+
+            if (handleAuthError(res)) return;
+
+            const data = await res.json();
+            if (data.correct) {
+                messageEl.textContent = 'Correct! Loading next question...';
+                messageEl.className = 'success';
+                setTimeout(getNewQuestion, 1500);
+            } else {
+                messageEl.textContent = `Incorrect. The answer was ${correctAnswer}. Try this new one.`;
+                messageEl.className = 'error';
+                setTimeout(getNewQuestion, 2500);
+            }
+        }
+
+        submitButton.addEventListener('click', checkAnswer);
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        // Load the first question
+        getNewQuestion();
+    </script>
+</body>
+</html>
