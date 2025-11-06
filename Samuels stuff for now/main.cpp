@@ -1,6 +1,5 @@
 #include <crow.h>
 #include "Database.h" // Include our database class
-// UPDATED: Include all three game logic headers
 #include "game.h"     
 #include "gameMedium.h"
 #include "gameHard.h"
@@ -13,7 +12,7 @@
 
 // Helper function, this will be used to load the web pages
 crow::response load_static_file(const std::string& path) {
-// ... (rest of function is unchanged) ...
+
     std::ifstream file("static/" + path);
     if (!file.is_open()) {
         return crow::response(404, "Not Found");
@@ -32,7 +31,7 @@ crow::response load_static_file(const std::string& path) {
     return res;
 }
 
-// ... (auth_check function is unchanged) ...
+
 bool auth_check(const std::shared_ptr<Database>& db_ptr,
                 const std::unordered_set<std::string>& public_paths,
                 const std::string& url,
@@ -54,18 +53,16 @@ bool auth_check(const std::shared_ptr<Database>& db_ptr,
 struct AuthMiddleware {
     std::shared_ptr<Database> db_ptr;
     
-    // UPDATED: Added public paths for all game pages and new APIs
     std::unordered_set<std::string> public_paths = {
         "/", 
         "/main.css", 
         "/api/login", 
         "/api/register",
         "/game" ,
-        "/gameMedium", // NEW
-        "/gameHard",   // NEW
+        "/gameMedium", 
+        "/gameHard",  
         "/menu",
         "/settings",
-        // NEW: Specific API routes for each difficulty
         "/api/easy/question",
         "/api/easy/answer",
         "/api/medium/question",
@@ -75,7 +72,6 @@ struct AuthMiddleware {
     };
 
     AuthMiddleware(std::shared_ptr<Database> db) : db_ptr(db) {}
-// ... (rest of AuthMiddleware is unchanged) ...
     struct context {};
 
     void before_handle(crow::request& req, crow::response& res, context& /*ctx*/) {
@@ -91,9 +87,9 @@ struct AuthMiddleware {
 #ifndef UNIT_TESTING
 int main() {
     //initialize game logic
-    GameEasy::initialize();     // UPDATED: Call easy
-    GameMedium::initialize();   // NEW: Call medium
-    GameHard::initialize();     // NEW: Call hard
+    GameEasy::initialize();     // Call easy
+    GameMedium::initialize();   // Call medium
+    GameHard::initialize();     // Call hard
     auto db = std::make_shared<Database>("math_game.db");
     crow::App<AuthMiddleware> app(AuthMiddleware{db});
 
@@ -101,21 +97,21 @@ int main() {
     CROW_ROUTE(app, "/")([] { return load_static_file("login.html"); });
     CROW_ROUTE(app, "/main.css")([] { return load_static_file("main.css"); });
     CROW_ROUTE(app, "/game")([] { return load_static_file("game.html"); }); 
-    // NEW: Routes for medium and hard pages
+    // Routes for medium and hard pages
     CROW_ROUTE(app, "/gameMedium")([] { return load_static_file("gameMedium.html"); }); 
     CROW_ROUTE(app, "/gameHard")([] { return load_static_file("gameHard.html"); }); 
     // Serve the menu page so logged-in users can be redirected here
     CROW_ROUTE(app, "/menu")([] { return load_static_file("Menu.html"); });
     CROW_ROUTE(app, "/settings")([] { return load_static_file("DifficultySettings.html"); });
 
-    // NEW: Added favicon route from DifficultySettings.cpp
+    // Added favicon route from DifficultySettings.cpp
     CROW_ROUTE(app, "/favicon.ico")([](const crow::request&, crow::response& res){
         res.code = 204; // No Content
         res.end();
     });
 
     CROW_ROUTE(app, "/api/register").methods("POST"_method)
-// ... (rest of /api/register is unchanged) ...
+
         ([&db](const crow::request& req) {
         auto body = crow::json::load(req.body);
         if (!body || !body.has("username") || !body.has("password")) {
@@ -131,7 +127,7 @@ int main() {
     });
 
     CROW_ROUTE(app, "/api/login").methods("POST"_method)
-// ... (rest of /api/login is unchanged) ...
+
         ([&db](const crow::request& req) {
         auto body = crow::json::load(req.body);
         if (!body || !body.has("username") || !body.has("password")) {
@@ -150,8 +146,6 @@ int main() {
         return crow::response(401, "{\"error\": \"Invalid username or password\"}");
     });
 
-    // REMOVED: The /api/setDifficulty endpoint is no longer needed.
-
     // Protected Routes
     
     // --- EASY API ---
@@ -162,7 +156,7 @@ int main() {
 
     CROW_ROUTE(app, "/api/easy/answer").methods("POST"_method)
         ([](const crow::request& req) {
-// ... (logic is the same) ...
+
         auto body = crow::json::load(req.body);
         if (!body || !body.has("user_answer") || !body.has("correct_answer")) {
             return crow::response(400, "Bad Request");
@@ -172,7 +166,7 @@ int main() {
         return crow::response(200, GameEasy::check_answer(user_ans, correct_ans));
     });
 
-    // --- MEDIUM API (NEW) ---
+    // --- MEDIUM API ---
     CROW_ROUTE(app, "/api/medium/question").methods("GET"_method)
         ([] {
         return crow::response(200, GameMedium::get_question());
@@ -189,7 +183,7 @@ int main() {
         return crow::response(200, GameMedium::check_answer(user_ans, correct_ans));
     });
 
-    // --- HARD API (NEW) ---
+    // --- HARD API ---
     CROW_ROUTE(app, "/api/hard/question").methods("GET"_method)
         ([] {
         return crow::response(200, GameHard::get_question());

@@ -3,10 +3,9 @@
 
 #include <crow.h>
 
-// UPDATED: Renamed class to be specific
 class GameEasy {
 private:
-    // REMOVED: static int difficulty_level;
+    
 
 public:
     /**
@@ -14,7 +13,6 @@ public:
      */
     static void initialize();
 
-    // REMOVED: static void set_difficulty(int level);
 
     /**
      * @brief Generates a new "Easy" math question.

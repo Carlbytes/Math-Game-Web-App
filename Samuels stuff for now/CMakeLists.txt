@@ -36,7 +36,6 @@ target_link_libraries(MathGame PRIVATE
 )
 
 # --- Copy 'static' Directory ---
-# Updated to copy the 'static' folder instead of 'www'
 add_custom_command(TARGET MathGame POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:MathGame>/static
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/static $<TARGET_FILE_DIR:MathGame>/static

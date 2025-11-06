@@ -4,23 +4,19 @@
 #include <string>  // For std::to_string
 #include <algorithm> // For std::swap
 
-// REMOVED: int Game::difficulty_level = 1;
 
 /**
  * @brief Initializes the game's random number generator.
  */
-// UPDATED: Class name
+
 void GameEasy::initialize() {
     // Seed the random number generator once
     srand(time(nullptr));
 }
 
-// REMOVED: set_difficulty function
-
 /**
  * @brief Generates a new "Easy" math question.
  */
-// UPDATED: Class name and logic
 crow::json::wvalue GameEasy::get_question() {
     int a, b;
     std::string operation = " + ";
@@ -44,7 +40,6 @@ crow::json::wvalue GameEasy::get_question() {
 /**
  * @brief Checks if a user's answer is correct.
  */
-// UPDATED: Class name
 crow::json::wvalue GameEasy::check_answer(int user_answer, int correct_answer) {
     crow::json::wvalue res;
     res["correct"] = (user_answer == correct_answer);

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Difficulty Settings</title>
-    <!-- Optional: Link to main.css to style this page too -->
+
     <link rel="stylesheet" href="/main.css">
     <script>
-        // REWORKED: This function now saves the difficulty to localStorage
+        // This function now saves the difficulty to localStorage
         // and then redirects back to the menu.
         function setDifficulty(level) {
             let path = '/game'; // Default to Easy
@@ -31,7 +31,6 @@
     <div class="container">
         <h1>Select Difficulty</h1>
         <div class="menu-actions">
-            <!-- UPDATED: Buttons now use onclick="setDifficulty(...)" -->
             <button type="button" onclick="setDifficulty('Easy')">Easy</button>
             <button type="button" onclick="setDifficulty('Normal')">Normal</button>
             <button type="button" onclick="setDifficulty('Hard')">Hard</button>
@@ -41,5 +40,5 @@
         </div>
     </div>
 </body>
-<!-- Removed the old styles, as main.css will be used -->
+
 </html>

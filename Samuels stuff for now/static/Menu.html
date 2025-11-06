@@ -46,9 +46,9 @@
     <div class="container">
         <h1>Math Game</h1>
         <div class="menu-actions">
-            <!-- UPDATED: Pointed to the correct function -->
+        
             <button type="button" onclick="startGame()">Start Game!</button>
-            <!-- UPDATED: Pointed to the correct function -->
+        
             <button type="button" onclick="openDifficultySettings()">Difficulty Settings</button>
             <button type="button" onclick="openHighScores()">HighScores</button>
             <button type="button" onclick="quitApp()">Quit</button>
@@ -70,11 +70,10 @@
 
         // --- Re-usable Auth Check ---
         function handleAuthError(response) {
-// ... existing code ... -->
             return false; // No auth error
         }
 
-        // UPDATED: This function now reads the difficulty from localStorage
+    
         function startGame() {
             // Get the saved path, or default to '/game' (Easy) if nothing is saved
             const gamePath = localStorage.getItem('math_game_difficulty_path') || '/game';
@@ -92,8 +91,7 @@
 
         function quitApp() {
             console.log("Quitting app...");
-            // This API endpoint (/api/quit) is not defined in your main.cpp
-            // You may need to add it later.
+        
             fetch("/api/quit", {
                 method: 'GET', // Or 'POST'
                 headers: {
@@ -112,8 +110,7 @@
 
         function openHighScores() {
             console.log("Opening high scores...");
-            // This API endpoint (/api/highscores) is not defined in your main.cpp
-            // You may need to add it later.
+        
             fetch("/api/highscores", {
                 method: 'GET',
                 headers: {

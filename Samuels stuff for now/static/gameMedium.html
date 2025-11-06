@@ -5,15 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Game - Medium</title>
     <link rel="stylesheet" href="/main.css">
+    <style>
+        #orb-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem; /* Space between orbs */
+            margin: 1.5rem 0; /* Space above and below orbs */
+            flex-wrap: wrap; /* Allow orbs to wrap on small screens */
+        }
+
+        .orb-button {
+            min-width: 80px; /* Make orbs a decent size */
+            padding: 1rem;
+            font-size: 1.2rem; /* Make text inside bigger */
+            
+            /* Make them rounder */
+            border-radius: 50px; 
+            
+            /* Use the main button styles */
+            background-color: #FFD300;
+            color: #121b2d;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 8px rgba(255, 211, 0, 0.2);
+        }
+
+        .orb-button:hover {
+            background-color: #ffdf33;
+            box-shadow: 0 4px 12px rgba(255, 211, 0, 0.3);
+            transform: translateY(-2px); /* Add a little lift */
+        }
+
+        .orb-button:disabled {
+            background-color: #5a6a8a; /* Color when disabled */
+            color: #9cb3d9;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Style for the correct button after answering */
+        .orb-button.correct {
+            background-color: #4CAF50; /* Green */
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Style for the wrong button after answering */
+        .orb-button.wrong {
+            background-color: #d93025; /* Red */
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(217, 48, 37, 0.3);
+        }
+
+    </style>
 </head>
 <body>
     <div class="container" id="game-container">
         <h2>Medium Mode</h2>
         <div id="question">Loading question...</div>
         
-        <div id="answer-container">
-            <input type="number" id="answer-input" placeholder="Your answer">
-            <button id="submit-answer">Submit</button>
+      
+        <div id="orb-container">
+            <!-- Orbs will be dynamically created here by JavaScript -->
         </div>
         
         <div id="message"></div>
@@ -27,13 +83,14 @@
         }
 
         const questionEl = document.getElementById('question');
-        const answerInput = document.getElementById('answer-input');
-        const submitButton = document.getElementById('submit-answer');
+    
+        const orbContainer = document.getElementById('orb-container');
         const messageEl = document.getElementById('message');
         
         let correctAnswer = 0;
 
         function handleAuthError(response) {
+      
             if (response.status === 401) {
                 localStorage.removeItem('math_game_token');
                 window.location.href = '/';
@@ -44,10 +101,10 @@
 
         async function getNewQuestion() {
             messageEl.textContent = '';
-            answerInput.value = '';
+        
+            orbContainer.innerHTML = ''; 
             questionEl.textContent = 'Loading...';
 
-            // UPDATED API PATH
             const res = await fetch('/api/medium/question', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -57,17 +114,46 @@
             const data = await res.json();
             questionEl.textContent = data.question;
             correctAnswer = data.answer;
+
+          
+            data.orbs.forEach(orbValue => {
+                const orbButton = document.createElement('button');
+                orbButton.className = 'orb-button';
+                orbButton.textContent = orbValue;
+                // Store the value in a data attribute
+                orbButton.dataset.value = orbValue; 
+                // Add the click listener
+                orbButton.addEventListener('click', handleOrbClick);
+                orbContainer.appendChild(orbButton);
+            });
         }
 
-        async function checkAnswer() {
-            const userAnswer = parseInt(answerInput.value, 10);
-            if (isNaN(userAnswer)) {
-                messageEl.textContent = 'Please enter a number.';
-                messageEl.className = 'error';
-                return;
-            }
+    
+        function handleOrbClick(event) {
+            // Get the answer from the button's data attribute
+            const userAnswer = parseInt(event.target.dataset.value, 10);
 
-            // UPDATED API PATH
+            // Disable all orb buttons to prevent multiple clicks
+            const orbButtons = document.querySelectorAll('.orb-button');
+            orbButtons.forEach(btn => {
+                btn.disabled = true;
+                // Highlight the correct/wrong buttons
+                const btnValue = parseInt(btn.dataset.value, 10);
+                if (btnValue === correctAnswer) {
+                    btn.classList.add('correct');
+                } else if (btnValue === userAnswer) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            // Call checkAnswer with the chosen value
+            checkAnswer(userAnswer);
+        }
+
+
+        async function checkAnswer(userAnswer) {
+        
+
             const res = await fetch('/api/medium/answer', {
                 method: 'POST',
                 headers: {
@@ -90,16 +176,9 @@
             } else {
                 messageEl.textContent = `Incorrect. The answer was ${correctAnswer}. Try this new one.`;
                 messageEl.className = 'error';
-                setTimeout(getNewQuestion, 2500);
+                setTimeout(getNewQuestion, 2500); // Give more time to see the correct answer
             }
         }
-
-        submitButton.addEventListener('click', checkAnswer);
-        answerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                checkAnswer();
-            }
-        });
 
         // Load the first question
         getNewQuestion();
