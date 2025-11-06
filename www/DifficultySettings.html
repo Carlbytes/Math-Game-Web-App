@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Difficulty Settings</title>
+    <script>
+        function setDifficulty(level) {
+            fetch('/api/setDifficulty/' + level)
+                .then(r => r.json())
+                .then(data => {
+                    // Redirect back to main menu with difficulty in query string
+                    window.location.href = 'http://localhost:8081/?difficulty=' + data.difficulty;
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>! Select Difficulty !</h1>
+
+<div>
+<button onclick="setDifficulty('Easy')">Easy</button>
+<button onclick="setDifficulty('Normal')">Normal</button>
+<button onclick="setDifficulty('Hard')">Hard</button>
+</div>
+
+</body>
+<style>
+    body {
+        background: #1e1e1e;
+        color: #d52929;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        padding-top: 80px;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #00ffff;
+    }
+
+    .difficulty {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .setDifficulty :hover {
+        background: #4eb5e8;
+        transform: scale(1.05);
+    }
+</style>
+
+</html>
+
