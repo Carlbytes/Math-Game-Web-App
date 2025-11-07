@@ -49,12 +49,16 @@ add_executable(RunTests
         gameMedium.cpp
         gameHard.cpp
         Database.cpp
-        main.cpp      # <--- 1. ADD MAIN.CPP HERE
+        main.cpp
 )
 
-# --- 2. ADD THIS BLOCK TO DEFINE UNIT_TESTING FOR THE TEST BUILD ---
 target_compile_definitions(RunTests PRIVATE UNIT_TESTING)
-# --- END OF NEW BLOCK ---
+
+add_custom_command(TARGET RunTests POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:RunTests>/static
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/static $<TARGET_FILE_DIR:RunTests>/static
+)
+
 
 target_link_libraries(RunTests PRIVATE
         Crow::Crow

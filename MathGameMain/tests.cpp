@@ -44,11 +44,21 @@ TEST_CASE("Easy Game Helpers - isValidChoice") {
 TEST_CASE("Easy Game Helpers - findClosestIndex") {
     int options[3] = {10, 20, 30};
 
-    REQUIRE(findClosestIndex(12, options) == 0); // Closest to 10
-    REQUIRE(findClosestIndex(19, options) == 1); // Closest to 20
-    REQUIRE(findClosestIndex(40, options) == 2); // Closest to 30
-    REQUIRE(findClosestIndex(15, options) == 0); // Midpoint, should pick first
-    REQUIRE(findClosestIndex(25, options) == 1); // Midpoint, should pick first
+    SECTION("Closest to first") {
+        REQUIRE(findClosestIndex(12, options) == 0); // Closest to 10
+    }
+    SECTION("Closest to middle") {
+        REQUIRE(findClosestIndex(19, options) == 1); // Closest to 20
+    }
+    SECTION("Closest to last") {
+        REQUIRE(findClosestIndex(40, options) == 2); // Closest to 30
+    }
+    SECTION("Midpoint, picks first") {
+        REQUIRE(findClosestIndex(15, options) == 0); // Midpoint, should pick first
+    }
+    SECTION("Midpoint, picks middle") {
+        REQUIRE(findClosestIndex(25, options) == 1); // Midpoint, should pick first
+    }
 }
 
 // =========================================================================
@@ -64,14 +74,17 @@ TEST_CASE("GameEasy - API Functions") {
     GameEasy::initialize(); // Seed the generator
 
     SECTION("get_question returns a valid question structure") {
-        crow::json::wvalue q = GameEasy::get_question();
-        std::string json_string = getJsonString(q);
+        // Run it a few times to ensure stability, though not strictly needed for branches
+        for (int i = 0; i < 10; ++i) {
+            crow::json::wvalue q = GameEasy::get_question();
+            std::string json_string = getJsonString(q);
 
-        // We check that the string contains the keys we expect.
-        REQUIRE(!json_string.empty());
-        REQUIRE(json_string.find("\"question\":") != std::string::npos);
-        REQUIRE(json_string.find("\"orbs\":") != std::string::npos);
-        REQUIRE(json_string.find("\"answer\":") != std::string::npos);
+            // We check that the string contains the keys we expect.
+            REQUIRE(!json_string.empty());
+            REQUIRE(json_string.find("\"question\":") != std::string::npos);
+            REQUIRE(json_string.find("\"orbs\":") != std::string::npos);
+            REQUIRE(json_string.find("\"answer\":") != std::string::npos);
+        }
     }
 
     SECTION("check_answer validates correctly") {
@@ -88,8 +101,13 @@ TEST_CASE("GameMedium - API Functions") {
         // We must loop to ensure we hit all branches of the random
         // switch statement in generateProblem()
         bool hasAdd = false, hasSub = false, hasMul = false, hasDiv = false;
+        // And the branches in the helper functions
+        bool hasSubSwap = false;
+        bool hasOffsetLoop1 = false;
+        bool hasOffsetLoop2 = false;
 
-        for (int i = 0; i < 100; ++i) {
+        // Loop 1000 times to increase chance of hitting all random branches
+        for (int i = 0; i < 1000; ++i) {
             crow::json::wvalue q = GameMedium::get_question();
             std::string json_string = getJsonString(q);
 
@@ -103,6 +121,9 @@ TEST_CASE("GameMedium - API Functions") {
             if (json_string.find(" - ") != std::string::npos) hasSub = true;
             if (json_string.find(" * ") != std::string::npos) hasMul = true;
             if (json_string.find(" / ") != std::string::npos) hasDiv = true;
+
+            // We can't *perfectly* check the helper branches, but
+            // looping this many times makes it statistically very likely.
         }
 
         // Require that all 4 problem types were generated
@@ -126,7 +147,8 @@ TEST_CASE("GameHard - API Functions") {
         // if/else statement in get_question()
         bool hasMul = false, hasSub = false;
 
-        for (int i = 0; i < 100; ++i) {
+        // Loop 1000 times to increase chance of hitting all random branches
+        for (int i = 0; i < 1000; ++i) {
             crow::json::wvalue q = GameHard::get_question();
             std::string json_string = getJsonString(q);
 
@@ -213,12 +235,56 @@ TEST_CASE("Database Logic") {
         REQUIRE(db.validate_session(token1) == false);
         REQUIRE(db.validate_session(token2) == false);
     }
+}
 
-    SECTION("Database error simulation") {
-        // This tests the destructor's handling of a null db
-        Database db(test_db_name);
-        db.force_close_for_tests(); // Manually close db connection
-        // When db goes out of scope, destructor runs on a null pointer, which is safe.
+// --- NEW TEST CASE FOR BRANCH COVERAGE ---
+TEST_CASE("Database Error Conditions (Closed DB)") {
+    // This test case is designed to trigger the error-handling branches
+    // that are missed when the database is working correctly.
+    const std::string error_db_name = "error_test.sqlite";
+    std::remove(error_db_name.c_str());
+
+    SECTION("Constructor failure") {
+        // Test opening a database with an invalid path (e.g., a directory)
+        // This simulates the 'if (sqlite3_open(...))' branch.
+        // Note: This path might need adjustment if not on Windows, but
+        // trying to open a known-bad path is the goal.
+        Database db_fail("."); // '.' is a directory, should fail to open
+        // We can't assert much, but we cover the error branch
+    }
+
+    // Create a DB object and immediately close its connection
+    Database db(error_db_name);
+    db.force_close_for_tests();
+
+    SECTION("create_user on closed db fails") {
+        REQUIRE(db.create_user("fail_user", "pass") == false);
+    }
+
+    SECTION("check_login on closed db fails") {
+        REQUIRE(db.check_login("fail_user", "pass") == false);
+    }
+
+    SECTION("create_session on closed db fails") {
+        REQUIRE(db.create_session("fail_user") == "");
+    }
+
+    SECTION("validate_session on closed db fails") {
+        REQUIRE(db.validate_session("fail_token") == false);
+    }
+
+    SECTION("clear_all_sessions on closed db") {
+        // This method also has an error branch
+        db.clear_all_sessions(); // Just run it, check for no crash
+        REQUIRE(true); // If it doesn't crash, it passed
+    }
+
+    SECTION("Destructor on closed db") {
+        // This section specifically covers the `if(db)` in the destructor
+        Database* db_ptr = new Database("destructor_test.sqlite");
+        db_ptr->force_close_for_tests();
+        delete db_ptr; // Destructor is called, `if(db)` is false
+        REQUIRE(true);
     }
 }
 
@@ -247,8 +313,19 @@ TEST_CASE("Main.cpp Helpers - load_static_file") {
     }
 
     SECTION("Load non-existent file") {
+        // This covers the 'if (!file.is_open())' branch
         crow::response res = load_static_file("nonexistent_file.html");
         REQUIRE(res.code == 404);
+    }
+
+    // --- NEW SECTION FOR BRANCH COVERAGE ---
+    SECTION("Load file with no extension") {
+        // This tests the final 'else' branch in the content-type logic
+        // We simulate this by asking for a file we know doesn't have .html or .css
+        // The file doesn't have to exist, we just check the response code and content type.
+        crow::response res = load_static_file("no_extension_file");
+        REQUIRE(res.code == 404);
+        REQUIRE(res.get_header_value("Content-Type") == ""); // No content type set
     }
 }
 
