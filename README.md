@@ -1,136 +1,143 @@
-# C++ Web Math Game
+# Math Game Web App
 
-This is a simple web-based math game that demonstrates a modern web architecture:
+This is a simple, web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
+The project is built using CMake and manages its dependencies with vcpkg.
 
-- Frontend: A lightweight, responsive HTML, CSS, and JavaScript interface (served from static/index.html).
-
-- Backend: A high-performance C++ server using the Crow C++ micro-framework.
-
-The C++ backend is responsible for generating math problems and verifying user answers, which it provides to the frontend via a simple JSON API.
-
-## How To set up and run this project?
-
-This Project is Built using a build and run .sh file, as the Backend is designed to run on a server, and thus is built for linux systems.
-It is done this way for simplicity, to avoid docker containers at the expense of more setup on the client side.
-
-If this was to ever make it into production, it would be hosted properly on a server, but for now it must be ran locally.
-
-### Windows
-
-1. Open PowerShell or Command Prompt as an Administrator
-2. Run the following command to install WSL
-
+## Features
+- User Authentication: Users can register and log in to their accounts.
+- Persistent Sessions: A simple token-based session system is stored in the database.
+- Three Difficulties:
+   - Easy: "Which number is closest?"
+   - Medium: Arithmetic with multiple-choice orbs (+, -, *, /).
+   - Hard: Arithmetic with manual number input (+, -, *, /).
+   - Unit Tests: Backend logic is tested using the Catch2 framework.
+ 
+## Project Structure
 ```
-wsl --install
-```
-3. Restart your computer when prompted.
-
-4. In command prompt, type the following command to verify Ubuntu version install. If an installation appears, you may skip Step 5.
-```
-wsl --list
-```
-5. Install Ubuntu, You can download any Ubuntu version from the microsoft store, it is recommended to pick an LTS version, but is not needed.
-6. Now, in your start menu, search for Ubuntu. Opening it will open a linux terminal enviornment. This is where we will compile and run our program
-   
-8. On the first launch, it will ask you to create a UNIX username and password. These are for your new Linux environment (they don't need to match your Windows login). Something like "name" and "admin" will suffice here.
-9. Inside the new Ubuntu Terminal, follow the steps inside the linux setup.
-
-### Linux
-
-1. Download The Project Folder, or clone the project
-2. Checkout project folder
-For Example: (Windows Via WSl terminal)
-```
-cd /mnt/c/Users/Sam/Desktop/Math_Game
-```
-For Example; (Linux native)
-```
-cd ~/Desktop/Math_Game
+.
+├── static/             # All frontend HTML, CSS, and JS files
+│   ├── login.html      # Login and registration page
+│   ├── Menu.html       # Main menu after login
+│   ├── game.html       # Easy difficulty game
+│   ├── gameMedium.html # Medium difficulty game
+│   ├── gameHard.html   # Hard difficulty game
+│   └── main.css        # Shared stylesheet
+├── Game.cpp / game.h       # Backend logic for Easy mode
+├── gameMedium.cpp / .h # Backend logic for Medium mode
+├── gameHard.cpp / .h   # Backend logic for Hard mode
+├── Database.cpp / .h   # SQLite3 database wrapper class
+├── main.cpp            # Main C++ file: sets up Crow server and API routes
+├── tests.cpp           # All Catch2 unit tests
+├── CMakeLists.txt      # Main CMake build script
+└── vcpkg.json          # vcpkg manifest for dependencies (crow, sqlite3, catch2)
 ```
 
-3. Update System and download Dependancies
+## Prerequisites
+Before you begin, ensure you have the following tools installed:
+- Git: https://git-scm.com/downloads
+- CMake (v3.15 or higher): https://cmake.org/download/
+- A C++ Compiler:
+   - Windows: Visual Studio 2019 or later (with the "Desktop development with C++" workload).
+   - Linux/WSL: `build-essential` (which includes `g++`) or `clang`.
+     ```
+      sudo apt update
+      sudo apt install build-essential g++
+
+     ```
+
+## Installation & Setup
+These instructions use `vcpkg` for dependency management. We will install `vcpkg` first.
+
+### 1. Install vcpkg
+It is recommended to install `vcpkg` in a central location outside of this project folder.
+
+### Windows (PowerShell)
 ```
-sudo apt-get update
-```
-
-```
-sudo apt-get install build-essential libasio-dev
-```
-
-4. (This should be done already) Make the Script Executeable. This only needs to be done once, so you may ignore this step unless the script will not run in the following step.
-```
-chmod +x build_and_run.sh
-```
-5. Run the Script
-```
-./build_and_run.sh
-```
-If successful, you will see the output: Starting server on port 18080...
-
-6. Open a web browser, and navigate to: http://localhost:18080
-
-### And you are done!
-
-It is important to note that this setup is only needed once, and it is not the only way to run this program (obviously)
-Running in the future just requires a repeat of step 5 and 6 above while checked out in the correct directory.
-You may also manually run it. The program can be ran natively on Windows also using Visual Studio, and microsofts compiler. however crow must be set up differently here, using the vcpkg package manager, and CMake, rather than G++
-This is not something i have messed around with. Feel free to update this file with instructions on how to set that up.
-
-## Editing in Visual Studio Code on windows.
-
-This will allow you to edit the code, while still compiling inside your linux enviornment.
-
-
-1. Install VS Code, Download and install [Visual Studio Code](https://code.visualstudio.com/download) on your Windows machine.
-
-2. Install the WSL Extension:
-
-- Open VS Code.
-- Click the Extensions icon on the left-hand sidebar (it looks like four squares).
-- Search for WSL and install the official extension by Microsoft.
-
-3. Close all VS Code instances.
-4. Open your Ubuntu (WSL) terminal (from the Start Menu).
-5. Navigate to your project directory:
-```
-cd YOUR_REPOSITORY
-```
-6. In that folder, type the following, and press enter.
-```
-code .
+# We recommend a central location, e.g., C:\dev\vcpkg
+git clone [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/vcpkg.git) C:\dev\vcpkg
+.\vcpkg\bootstrap-vcpkg.bat
+# This next step makes vcpkg available system-wide for Visual Studio & CLion
+.\vcpkg\vcpkg.exe integrate install
 ```
 
-That command then should install some dependancies if it is your first time running it, and then open a VS Code window.
-You'll see a box in the bottom-left corner that says "WSL: Ubuntu".
-To compile and run your server, just open the built-in terminal in VS Code (View -> Terminal or `Ctrl+``). This terminal is already inside your Ubuntu environment in the correct folder.
-n the VS Code terminal, just type:
+### Linux / WSL (Bash)
 ```
-./build_and_run.sh
+# We recommend a central location, e.g., $HOME/vcpkg
+git clone [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/vcpkg.git) ~/vcpkg
+~/vcpkg/bootstrap-vcpkg.sh
+# This next step makes vcpkg available system-wide for your user
+~/vcpkg/vcpkg integrate install
 ```
 
+### 2. Clone This Repository
+Now, clone this project repository to your local machine.
+```
+git clone [https://github.com/your-username/math-game.git](https://github.com/your-username/math-game.git)
+cd math-game
+```
 
+## Building and Running the Project
+You can build the project using an IDE (recommended) or manually from the terminal.
 
+### Windows / Linux / WSL: CLion
+1. Open CLion
+2. Go to `File > Open`  and select the cloned `MathGameMain` folder.
+3. CLion will automatically detect the `CMakeLists.txt`.
+4. Go to `File > Settings > Build, Execution, Deployment > CMake`.
+5. Find your profile (e.g., "Debug") and add the following to the CMake options box. This tells CLion where to find `vcpkg`.
+   - (Remember to use forward slashes / for paths)
+     ```
+      -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake
 
+      ### FOR CODE COVERAGE:
+      -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake -DENABLE_COVERAGE=ON
+     ```
+6. Click `OK`. CLion should reload CMake and successfully find all dependencies.
+7. Select the `MathGame` target from the configuration drop-down (top right).
+8. Click the `Run` (▶) button.
+9. Open your browser to `http://localhost:18080.`
 
+## Windows: Visual Studio (2019 or later)
+Visual Studio's "Open Folder" feature works perfectly with CMake and `vcpkg`.
 
+1. Open Visual Studio.
+2. On the welcome screen, select "Open a local folder".
+3. Navigate to and select the cloned `MathGameMain` folder.
+4. Visual Studio will read the `CMakeLists.txt` and configure the project. Because you ran `vcpkg integrate install`, it should automatically find the dependencies.
+5. In the Solution Explorer, right-click on `CMakeLists.txt` and select "Build".
+6. Once built, select `MathGame.exe` from the "Select Startup Item" drop-down in the toolbar.
+7. Click the green `Run` (▶) button.
+8. Open your browser to `http://localhost:18080`.
 
+## Linux / WSL: 
+This is the classic CMake workflow. Run these commands from the root of the `math-game` project directory.
+```
+# Set the path to your vcpkg toolchain file
+VCPKG_TOOLCHAIN=~/vcpkg/scripts/buildsystems/vcpkg.cmake
 
+# 1. Configure CMake
+#    (We'll create a build directory named 'build')
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_TOOLCHAIN
 
+# 2. Build the project
+cmake --build build
 
+# 3. Run the server
+./build/MathGame
 
+```
+Your server is now running. Open a web browser to `http://localhost:18080` to play the game.
 
+## Running the Unit Tests
+This project uses Catch2 for unit testing. The tests are defined in the `RunTests` target.
 
+### From CLion / Visual Studio:
+1. Change the active build target from `MathGame` to `RunTests`.
+2. Click the `Run` (▶) button. The tests will run in the console.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+### From the Terminal (Linux / WSL):
+1. Make sure you have already built the project (see manual build steps above).
+2. Run the test executable:
+   ```
+   ./build/RunTests
+   ```
