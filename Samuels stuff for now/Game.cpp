@@ -1,8 +1,9 @@
 //#include "pch.h"
-#include "game.h" // <-- This is the fix (was "Game.h")
+#include "game.h"
 #include <cstdlib>
 #include <cmath>
 #include <crow.h>
+#include <string>
 
 // ===========================================
 // GameEasy Class Functions
@@ -24,12 +25,24 @@ crow::json::wvalue GameEasy::get_question() {
     int closestIndex = findClosestIndex(target, options);
     int answer = options[closestIndex];
 
+    // --- START OF FIX ---
+
+    // 1. Create the question string
+    std::string question_str = "Which of these numbers is closest to " + std::to_string(target) + "?";
+
     crow::json::wvalue res;
-    res["target"] = target;
-    res["options"][0] = options[0];
-    res["options"][1] = options[1];
-    res["options"][2] = options[2];
+    res["question"] = question_str; // Use the "question" key
+
+    // 2. Create a JSON list for "orbs"
+    crow::json::wvalue::list orb_list;
+    orb_list.push_back(options[0]);
+    orb_list.push_back(options[1]);
+    orb_list.push_back(options[2]);
+    res["orbs"] = std::move(orb_list); // Use the "orbs" key
+
     res["answer"] = answer; // The correct (closest) number
+
+
 
     return res;
 }

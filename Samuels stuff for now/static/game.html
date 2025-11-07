@@ -19,10 +19,10 @@
             min-width: 80px; /* Make orbs a decent size */
             padding: 1rem;
             font-size: 1.2rem; /* Make text inside bigger */
-            
+
             /* Make them rounder */
-            border-radius: 50px; 
-            
+            border-radius: 50px;
+
             /* Use the main button styles */
             background-color: #FFD300;
             color: #121b2d;
@@ -64,128 +64,128 @@
     </style>
 </head>
 <body>
-    <div class="container" id="game-container">
-        <!-- UPDATED: Title -->
-        <h2>Easy Mode</h2>
-        <div id="question">Loading question...</div>
-        
-        <!-- UPDATED: This container will hold the 3 orb buttons -->
-        <div id="orb-container">
-            <!-- Orbs will be dynamically created here by JavaScript -->
-        </div>
-        
-        <div id="message"></div>
-        <button onclick="window.location.href='/menu'" style="margin-top: 1rem;">Back to Menu</button>
+<div class="container" id="game-container">
+    <!-- UPDATED: Title -->
+    <h2>Easy Mode</h2>
+    <div id="question">Loading question...</div>
+
+    <!-- UPDATED: This container will hold the 3 orb buttons -->
+    <div id="orb-container">
+        <!-- Orbs will be dynamically created here by JavaScript -->
     </div>
 
-    <script>
-        const token = localStorage.getItem('math_game_token');
-        if (!token) {
+    <div id="message"></div>
+    <button onclick="window.location.href='/menu'" style="margin-top: 1rem;">Back to Menu</button>
+</div>
+
+<script>
+    const token = localStorage.getItem('math_game_token');
+    if (!token) {
+        window.location.href = '/';
+    }
+
+    const questionEl = document.getElementById('question');
+    // UPDATED: Get the new orb container
+    const orbContainer = document.getElementById('orb-container');
+    const messageEl = document.getElementById('message');
+
+    let correctAnswer = 0;
+
+    function handleAuthError(response) {
+        // ... (this function is unchanged) ...
+        if (response.status === 401) {
+            localStorage.removeItem('math_game_token');
             window.location.href = '/';
+            return true;
         }
+        return false;
+    }
 
-        const questionEl = document.getElementById('question');
-        // UPDATED: Get the new orb container
-        const orbContainer = document.getElementById('orb-container');
-        const messageEl = document.getElementById('message');
-        
-        let correctAnswer = 0;
+    async function getNewQuestion() {
+        messageEl.textContent = '';
+        // UPDATED: Clear the orbs
+        orbContainer.innerHTML = '';
+        questionEl.textContent = 'Loading...';
 
-        function handleAuthError(response) {
-            // ... (this function is unchanged) ...
-            if (response.status === 401) {
-                localStorage.removeItem('math_game_token');
-                window.location.href = '/';
-                return true;
+        // UPDATED: Call easy API
+        const res = await fetch('/api/easy/question', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (handleAuthError(res)) return;
+
+        const data = await res.json();
+        questionEl.textContent = data.question;
+        correctAnswer = data.answer;
+
+        // NEW: Create and add the orb buttons
+        data.orbs.forEach(orbValue => {
+            const orbButton = document.createElement('button');
+            orbButton.className = 'orb-button';
+            orbButton.textContent = orbValue;
+            // Store the value in a data attribute
+            orbButton.dataset.value = orbValue;
+            // Add the click listener
+            orbButton.addEventListener('click', handleOrbClick);
+            orbContainer.appendChild(orbButton);
+        });
+    }
+
+    // NEW: This function is called when an orb is clicked
+    function handleOrbClick(event) {
+        // Get the answer from the button's data attribute
+        const userAnswer = parseInt(event.target.dataset.value, 10);
+
+        // Disable all orb buttons to prevent multiple clicks
+        const orbButtons = document.querySelectorAll('.orb-button');
+        orbButtons.forEach(btn => {
+            btn.disabled = true;
+            // Highlight the correct/wrong buttons
+            const btnValue = parseInt(btn.dataset.value, 10);
+            if (btnValue === correctAnswer) {
+                btn.classList.add('correct');
+            } else if (btnValue === userAnswer) {
+                btn.classList.add('wrong');
             }
-            return false;
+        });
+
+        // Call checkAnswer with the chosen value
+        checkAnswer(userAnswer);
+    }
+
+    // UPDATED: This function now takes userAnswer as a parameter
+    async function checkAnswer(userAnswer) {
+        // The 'isNaN' check is no longer needed
+
+        // UPDATED: Call easy API
+        const res = await fetch('/api/easy/answer', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_answer: userAnswer,
+                correct_answer: correctAnswer
+            })
+        });
+
+        if (handleAuthError(res)) return;
+
+        const data = await res.json();
+        if (data.correct) {
+            messageEl.textContent = 'Correct! Loading next question...';
+            messageEl.className = 'success';
+            setTimeout(getNewQuestion, 1500);
+        } else {
+            messageEl.textContent = `Incorrect. The answer was ${correctAnswer}. Try this new one.`;
+            messageEl.className = 'error';
+            setTimeout(getNewQuestion, 2500); // Give more time to see the correct answer
         }
+    }
 
-        async function getNewQuestion() {
-            messageEl.textContent = '';
-            // UPDATED: Clear the orbs
-            orbContainer.innerHTML = ''; 
-            questionEl.textContent = 'Loading...';
-
-            // UPDATED: Call easy API
-            const res = await fetch('/api/easy/question', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (handleAuthError(res)) return;
-
-            const data = await res.json();
-            questionEl.textContent = data.question;
-            correctAnswer = data.answer;
-
-            // NEW: Create and add the orb buttons
-            data.orbs.forEach(orbValue => {
-                const orbButton = document.createElement('button');
-                orbButton.className = 'orb-button';
-                orbButton.textContent = orbValue;
-                // Store the value in a data attribute
-                orbButton.dataset.value = orbValue; 
-                // Add the click listener
-                orbButton.addEventListener('click', handleOrbClick);
-                orbContainer.appendChild(orbButton);
-            });
-        }
-
-        // NEW: This function is called when an orb is clicked
-        function handleOrbClick(event) {
-            // Get the answer from the button's data attribute
-            const userAnswer = parseInt(event.target.dataset.value, 10);
-
-            // Disable all orb buttons to prevent multiple clicks
-            const orbButtons = document.querySelectorAll('.orb-button');
-            orbButtons.forEach(btn => {
-                btn.disabled = true;
-                // Highlight the correct/wrong buttons
-                const btnValue = parseInt(btn.dataset.value, 10);
-                if (btnValue === correctAnswer) {
-                    btn.classList.add('correct');
-                } else if (btnValue === userAnswer) {
-                    btn.classList.add('wrong');
-                }
-            });
-
-            // Call checkAnswer with the chosen value
-            checkAnswer(userAnswer);
-        }
-
-        // UPDATED: This function now takes userAnswer as a parameter
-        async function checkAnswer(userAnswer) {
-            // The 'isNaN' check is no longer needed
-
-            // UPDATED: Call easy API
-            const res = await fetch('/api/easy/answer', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_answer: userAnswer,
-                    correct_answer: correctAnswer
-                })
-            });
-
-            if (handleAuthError(res)) return;
-
-            const data = await res.json();
-            if (data.correct) {
-                messageEl.textContent = 'Correct! Loading next question...';
-                messageEl.className = 'success';
-                setTimeout(getNewQuestion, 1500);
-            } else {
-                messageEl.textContent = `Incorrect. The answer was ${correctAnswer}. Try this new one.`;
-                messageEl.className = 'error';
-                setTimeout(getNewQuestion, 2500); // Give more time to see the correct answer
-            }
-        }
-        
-        // Load the first question
-        getNewQuestion();
-    </script>
+    // Load the first question
+    getNewQuestion();
+</script>
 </body>
 </html>
