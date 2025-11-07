@@ -1,0 +1,9 @@
+{
+  "name": "crow-main-menu",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "crow",
+    "sqlite3",
+    "catch2"
+  ]
+}

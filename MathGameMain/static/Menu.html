@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game - Menu</title>
+    <!-- We are linking to the main.css file you provided -->
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* This new rule uses flexbox to stack buttons */
+        .menu-actions {
+            display: flex;
+            flex-direction: column;
+            /* removed gap: 1rem; */
+            width: 100%;
+        }
+
+        /* Small layout helper to keep buttons a bit narrower on large screens */
+        .menu-actions button {
+            max-width: 300px;
+            margin-left: auto;  /* This centers the button horizontally */
+            margin-right: auto; /* This centers the button horizontally */
+            margin-bottom: 1rem; /* This creates the "one space" between buttons */
+        }
+        
+        /* Keep the red logout look using the existing id used in other pages */
+        #logout-button {
+            background-color: transparent;
+            border: 2px solid #d93025;
+            color: #d93025;
+            box-shadow: none;
+            /* This 1rem margin-top... */
+            margin-top: 1rem; 
+            /* ...adds to the 1rem margin-bottom of the "Quit" button, creating 2rem total space */
+            margin-bottom: 0; /* The last button doesn't need a margin-bottom */
+        }
+        #logout-button:hover {
+            background-color: #d93025;
+            color: #121b2d;
+            box-shadow: 0 2px 8px rgba(217, 48, 37, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Game</h1>
+        <div class="menu-actions">
+        
+            <button type="button" onclick="startGame()">Start Game!</button>
+        
+            <button type="button" onclick="openDifficultySettings()">Difficulty Settings</button>
+            <button type="button" onclick="openHighScores()">HighScores</button>
+            <button type="button" onclick="quitApp()">Quit</button>
+            <button id="logout-button" type="button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the token from storage
+        const token = localStorage.getItem('math_game_token');
+
+        // If no token exists, the user is not logged in.
+        // Redirect them to the login page.
+        if (!token) {
+            // Assuming the login page is at the root '/'
+            window.location.href = '/'; 
+            // console.log("No token found, redirecting to login.");
+        }
+
+        // --- Re-usable Auth Check ---
+        function handleAuthError(response) {
+            return false; // No auth error
+        }
+
+    
+        function startGame() {
+            // Get the saved path, or default to '/game' (Easy) if nothing is saved
+            const gamePath = localStorage.getItem('math_game_difficulty_path') || '/game';
+            
+            console.log(`Starting game... redirecting to ${gamePath}`);
+            window.location.href = gamePath;
+        }
+
+        // UPDATED: This function now redirects to the correct settings page
+        function openDifficultySettings() {
+            console.log("Opening difficulty settings... redirecting to /settings");
+            // This path is served by main.cpp
+            window.location.href = '/settings';
+        }
+
+        function quitApp() {
+            console.log("Quitting app...");
+        
+            fetch("/api/quit", {
+                method: 'GET', // Or 'POST'
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => {
+                    if (handleAuthError(res)) return;
+                    return res.json();
+                })
+                .then(data => {
+                    if (data) console.log("Quit:", data);
+                })
+                .catch(err => console.error("Error:", err));
+        }
+
+        function openHighScores() {
+            console.log("Opening high scores...");
+        
+            fetch("/api/highscores", {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => {
+                    if (handleAuthError(res)) return;
+                    return res.json();
+                })
+                .then(data => {
+                    if (data) console.log("HighScores:", data);
+                })
+                .catch(err => console.error("Error:", err));
+        }
+
+        function logout() {
+            console.log("Logging out...");
+            localStorage.removeItem('math_game_token');
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
