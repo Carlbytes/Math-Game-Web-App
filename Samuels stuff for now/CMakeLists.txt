@@ -25,6 +25,7 @@ set(SOURCES
 add_executable(MathGame ${SOURCES})
 
 target_link_libraries(MathGame PRIVATE
+        Crow::Crow
         unofficial::sqlite3::sqlite3
         Threads::Threads
 )
@@ -50,6 +51,7 @@ add_executable(RunTests
 )
 
 target_link_libraries(RunTests PRIVATE
+        Crow::Crow
         Threads::Threads
         # We link Catch2 *without* Main, so we can provide our own
         Catch2::Catch2

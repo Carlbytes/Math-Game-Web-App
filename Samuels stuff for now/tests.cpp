@@ -1,4 +1,3 @@
-// This defines the main() for Catch2
 #define CATCH_CONFIG_MAIN
 #include "catch2/catch.hpp"
 
@@ -41,7 +40,6 @@ TEST_CASE("Easy Game Helpers - findClosestIndex") {
 // =========================================================================
 
 // --- Helper function to convert a wvalue to a string for testing ---
-// This is robust and avoids all the previous JSON parsing errors.
 std::string getJsonString(const crow::json::wvalue& val) {
     return val.dump();
 }
@@ -53,11 +51,10 @@ TEST_CASE("GameEasy - API Functions") {
         crow::json::wvalue q = GameEasy::get_question();
         std::string json_string = getJsonString(q);
 
-        // We just check that the string contains the keys we expect.
-        // This is simple and linker-safe.
+        // We check that the string contains the keys we expect.
         REQUIRE(!json_string.empty());
-        REQUIRE(json_string.find("\"target\":") != std::string::npos);
-        REQUIRE(json_string.find("\"options\":") != std::string::npos);
+        REQUIRE(json_string.find("\"question\":") != std::string::npos);
+        REQUIRE(json_string.find("\"orbs\":") != std::string::npos);
         REQUIRE(json_string.find("\"answer\":") != std::string::npos);
     }
 
@@ -71,14 +68,33 @@ TEST_CASE("GameEasy - API Functions") {
 TEST_CASE("GameMedium - API Functions") {
     GameMedium::initialize(); // Seed the generator
 
-    SECTION("get_question returns a valid question structure") {
-        crow::json::wvalue q = GameMedium::get_question();
-        std::string json_string = getJsonString(q);
+    SECTION("get_question returns a valid question structure with all operators") {
 
-        REQUIRE(!json_string.empty());
-        REQUIRE(json_string.find("\"question\":") != std::string::npos);
-        REQUIRE(json_string.find("\"orbs\":") != std::string::npos);
-        REQUIRE(json_string.find("\"answer\":") != std::string::npos);
+        // We must loop to ensure we hit all branches of the random
+        // switch statement in generateProblem()
+        bool hasAdd = false, hasSub = false, hasMul = false, hasDiv = false;
+
+        for (int i = 0; i < 100; ++i) {
+            crow::json::wvalue q = GameMedium::get_question();
+            std::string json_string = getJsonString(q);
+
+            REQUIRE(!json_string.empty());
+            REQUIRE(json_string.find("\"question\":") != std::string::npos);
+            REQUIRE(json_string.find("\"orbs\":") != std::string::npos);
+            REQUIRE(json_string.find("\"answer\":") != std::string::npos);
+
+            // Check which operator was generated
+            if (json_string.find(" + ") != std::string::npos) hasAdd = true;
+            if (json_string.find(" - ") != std::string::npos) hasSub = true;
+            if (json_string.find(" * ") != std::string::npos) hasMul = true;
+            if (json_string.find(" / ") != std::string::npos) hasDiv = true;
+        }
+
+        // Require that all 4 problem types were generated
+        REQUIRE(hasAdd);
+        REQUIRE(hasSub);
+        REQUIRE(hasMul);
+        REQUIRE(hasDiv);
     }
 
     SECTION("check_answer validates correctly") {
@@ -90,15 +106,28 @@ TEST_CASE("GameMedium - API Functions") {
 TEST_CASE("GameHard - API Functions") {
     GameHard::initialize(); // Seed the generator
 
-    SECTION("get_question returns a valid question structure") {
-        // This assumes GameHard::get_question is still a placeholder
-        // with simple addition, like the original game.cpp
-        crow::json::wvalue q = GameHard::get_question();
-        std::string json_string = getJsonString(q);
+    SECTION("get_question returns a valid question structure with all operators") {
 
-        REQUIRE(!json_string.empty());
-        REQUIRE(json_string.find("\"question\":") != std::string::npos);
-        REQUIRE(json_string.find("\"answer\":") != std::string::npos);
+        // We must loop to ensure we hit both branches of the random
+        // if/else statement in get_question()
+        bool hasMul = false, hasSub = false;
+
+        for (int i = 0; i < 100; ++i) {
+            crow::json::wvalue q = GameHard::get_question();
+            std::string json_string = getJsonString(q);
+
+            REQUIRE(!json_string.empty());
+            REQUIRE(json_string.find("\"question\":") != std::string::npos);
+            REQUIRE(json_string.find("\"answer\":") != std::string::npos);
+
+            // Check which operator was generated
+            if (json_string.find(" * ") != std::string::npos) hasMul = true;
+            if (json_string.find(" - ") != std::string::npos) hasSub = true;
+        }
+
+        // Require that both problem types were generated
+        REQUIRE(hasMul);
+        REQUIRE(hasSub);
     }
 
     SECTION("check_answer validates correctly") {
