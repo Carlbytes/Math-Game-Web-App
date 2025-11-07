@@ -18,7 +18,7 @@ find_package(Threads REQUIRED)
 set(SOURCES
         main.cpp
         Database.cpp
-        game.cpp
+        Game.cpp
         gameMedium.cpp
         gameHard.cpp
 )
@@ -45,13 +45,20 @@ add_custom_command(TARGET MathGame POST_BUILD
 enable_testing()
 add_executable(RunTests
         tests.cpp
-        game.cpp
+        Game.cpp
         gameMedium.cpp
         gameHard.cpp
+        Database.cpp
+        main.cpp      # <--- 1. ADD MAIN.CPP HERE
 )
+
+# --- 2. ADD THIS BLOCK TO DEFINE UNIT_TESTING FOR THE TEST BUILD ---
+target_compile_definitions(RunTests PRIVATE UNIT_TESTING)
+# --- END OF NEW BLOCK ---
 
 target_link_libraries(RunTests PRIVATE
         Crow::Crow
+        unofficial::sqlite3::sqlite3
         Threads::Threads
         # We link Catch2 *without* Main, so we can provide our own
         Catch2::Catch2
