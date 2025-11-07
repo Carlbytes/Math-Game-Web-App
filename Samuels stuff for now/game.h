@@ -1,28 +1,36 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
-#include <crow.h>
+#include "crow.h"
 
+// --- GameEasy Class ---
+// This class holds the main API functions for the easy game
 class GameEasy {
-private:
-    
-
 public:
-    /**
-     * @brief Initializes the game's random number generator.
-     */
-    static void initialize();
-
-
-    /**
-     * @brief Generates a new "Easy" math question.
-     */
-    static crow::json::wvalue get_question();
-
-    /**
-     * @brief Checks if a user's answer is correct.
-     */
-    static crow::json::wvalue check_answer(int user_answer, int correct_answer);
+ static void initialize();
+ static crow::json::wvalue get_question();
+ static crow::json::wvalue check_answer(int user_answer, int correct_answer);
 };
 
-#endif // GAME_H
+// --- GameEasy Helper Functions ---
+// These are the functions your colleague wrote.
+// By declaring them here, other files (like tests.cpp) can see them.
+
+/**
+ * @brief Returns the index (0..2) of the option closest to target
+ */
+int findClosestIndex(int target, const int options[3]);
+
+/**
+ * @brief Validates if the choice is within valid range (1-3)
+ */
+bool isValidChoice(int choice);
+
+/**
+ * @brief Generates random number between min and max (inclusive)
+ */
+int generateRandomNumber(int min, int max);
+
+/**
+ * @brief Fills the options array with random numbers
+ */
+void generateOptions(int options[3], int min, int max);

@@ -3,6 +3,7 @@
   "version-string": "1.0.0",
   "dependencies": [
     "crow",
-    "sqlite3"
+    "sqlite3",
+    "catch2"
   ]
 }

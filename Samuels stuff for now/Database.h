@@ -10,7 +10,7 @@ class Database {
 public:
     // Constructor: Opens the database connection and creates tables if they don't exist
     Database(const std::string& db_name);
-    
+
     // Destructor: Closes the database connection
     ~Database();
 
@@ -32,7 +32,7 @@ private:
     // Helper to run the initial table creation SQL
     void create_tables();
     // Helper to hash passwords (simple, NOT cryptographically secure for production)
-    std::string hash_password(const std::string& password); 
+    std::string hash_password(const std::string& password);
     // Helper to generate a random token
     std::string generate_token();
 };
