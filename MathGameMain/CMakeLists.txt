@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # --- Find Dependencies (from vcpkg) ---
 # This finds crow, asio, etc.
-find_package(crow CONFIG REQUIRED)
+find_package(Crow CONFIG REQUIRED)
 # This finds sqlite3
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
 # This finds Catch2
