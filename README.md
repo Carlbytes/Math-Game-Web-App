@@ -9,7 +9,7 @@ The project allows for standard development builds via CMake/vcpkg, but also fea
 ## 🚀 Live Deployment
 The project is currently hosted on an Oracle Cloud VPS using a Dockerized environment behind a secure Caddy reverse proxy.
 
-**[Play the Game Here](https://sam-mathgame.duckdns.org)**
+**[Play the Game Here](https://se3-mathgame.duckdns.org)**
 
 ## Features
 - **User Authentication:** Users can register and log in to their accounts.
