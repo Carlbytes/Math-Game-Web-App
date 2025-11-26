@@ -1,83 +1,76 @@
 pipeline {
-    agent {
-        docker {
-            image 'gcc:latest'
-            // Maps the Docker socket so the container can talk to the daemon if needed
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     environment {
-        VCPKG_ROOT = "${WORKSPACE}/vcpkg"
-        BUILD_DIR = "${WORKSPACE}/build"
-        // Force vcpkg to run as root inside the container
-        VCPKG_FORCE_SYSTEM_BINARIES = '1'
+        // Based on your logs, vcpkg is at /home/sam/vcpkg
+        VCPKG_ROOT = "/home/sam/vcpkg"
+        // We will create the build folder INSIDE the MathGameMain folder
+        BUILD_DIR = "build"
     }
 
     stages {
-        stage('Setup Environment') {
+        stage('Install Dependencies') {
             steps {
-                script {
-                    // Install dependencies inside the Docker container
-                    sh 'apt-get update && apt-get install -y git curl zip unzip tar cmake ninja-build pkg-config'
-                }
-            }
-        }
-
-        stage('Install Dependencies (vcpkg)') {
-            steps {
-                script {
-                    if (!fileExists("${VCPKG_ROOT}/vcpkg")) {
-                        sh 'git clone https://github.com/microsoft/vcpkg.git ${VCPKG_ROOT}'
-                        sh '${VCPKG_ROOT}/bootstrap-vcpkg.sh'
+                // 1. Enter the project folder
+                dir('MathGameMain') {
+                    script {
+                        // Run vcpkg install here so it finds vcpkg.json
+                        sh '${VCPKG_ROOT}/vcpkg install'
                     }
-                    sh '${VCPKG_ROOT}/vcpkg install'
                 }
             }
         }
 
-        stage('Configure (CMake)') {
+        stage('Configure') {
             steps {
-                sh """
-                    cmake -B ${BUILD_DIR} -S . \
-                    -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
-                    -DCMAKE_BUILD_TYPE=Debug
-                """
+                dir('MathGameMain') {
+                    // 2. Configure CMake inside the folder
+                    // -S . means "source is in current folder" (which is now MathGameMain)
+                    sh """
+                        cmake -B ${BUILD_DIR} -S . \
+                        -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
+                        -DCMAKE_BUILD_TYPE=Debug \
+                        -DENABLE_COVERAGE=ON
+                    """
+                }
             }
         }
 
         stage('Build') {
             steps {
-                sh "cmake --build ${BUILD_DIR}"
+                dir('MathGameMain') {
+                    // 3. Build inside the folder
+                    sh "cmake --build ${BUILD_DIR}"
+                }
             }
         }
 
         stage('Unit Tests') {
             steps {
-                dir("${BUILD_DIR}") {
-                    // Run the tests and produce JUnit XML output
-                    sh './RunTests -r junit -o results.xml'
+                dir('MathGameMain') {
+                    dir("${BUILD_DIR}") {
+                        // 4. Run tests inside the build folder
+                        sh './RunTests -r junit -o results.xml'
+                    }
                 }
             }
             post {
                 always {
-                    // Publish the test results to Jenkins
-                    junit "${BUILD_DIR}/results.xml"
+                    // Jenkins looks for the results file relative to workspace root
+                    junit "MathGameMain/${BUILD_DIR}/results.xml"
                 }
             }
         }
 
-        stage('Dry Run (Verification)') {
+        stage('Run Game (Verify)') {
             steps {
-                dir("${BUILD_DIR}") {
-                    script {
-                        // Start the game server in background
-                        sh 'nohup ./MathGame > server.log 2>&1 &'
+                dir('MathGameMain') {
+                    dir("${BUILD_DIR}") {
+                        // 5. Dry run verification
+                        sh 'nohup ./MathGame > server.log 2>&1 & echo $! > pid.file'
                         sleep 5
-                        // Check if it responds to a request
                         sh 'curl -v --fail http://localhost:18080/'
-                        // Clean up
-                        sh 'pkill MathGame || true'
+                        sh 'kill $(cat pid.file)'
                     }
                 }
             }
