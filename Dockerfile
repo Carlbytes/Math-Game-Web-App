@@ -13,9 +13,14 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies & Build
-# Note: We use Release mode for the smallest/fastest game
-RUN /opt/vcpkg/vcpkg install
+# FIX: We use 'cd' to enter the folder where vcpkg.json lives
+RUN cd MathGameMain && /opt/vcpkg/vcpkg install
+
+# Configure CMake
+# -S MathGameMain: Tells CMake the source code (and CMakeLists.txt) is in that subfolder
 RUN cmake -B build -S MathGameMain -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release
+
+# Build the project
 RUN cmake --build build
 
 # --- Stage 2: Run the Game ---
@@ -33,5 +38,5 @@ COPY --from=builder /app/MathGameMain/static ./static
 # Open the port
 EXPOSE 18080
 
-# Start the game
+# Run the game
 CMD ["./MathGame"]
