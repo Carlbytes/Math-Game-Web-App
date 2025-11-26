@@ -1,65 +1,110 @@
 pipeline {
-    // 1. Use 'any' agent. This will run on the main Jenkins machine
-    // (your laptop's built-in node).
-    agent any
+    agent any 
 
-    // 2. Define parameters
-    // This will create a UI box in Jenkins when you click "Build",
-    // asking you for the path to vcpkg.
-    parameters {
-        string(name: 'VCPKG_ROOT',
-               // TODO: Change this to the *actual* path on your laptop
-               defaultValue: '/home/sam/vcpkg',
-               description: 'Absolute path to your vcpkg installation (e.g., /home/sam/vcpkg)')
-    }
-
-    // 3. Set environment variables for the build
     environment {
-        // Use the parameter to build the full toolchain file path
-        VCPKG_TOOLCHAIN = "${params.VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-        BUILD_DIR = 'build'
+        // Path to vcpkg on your Linux Mint machine
+        VCPKG_ROOT = "/home/sam/vcpkg" 
+        // The build folder will be created inside MathGameMain
+        BUILD_DIR = "build" 
     }
 
-    // 4. Define the build stages
     stages {
-        stage('Checkout') {
+        stage('Debug Info') {
             steps {
-                // Checkout the code from Git
-                checkout scm
+                script {
+                    // This helps us verify where we are
+                    echo "Root Directory: ${pwd()}"
+                    sh 'ls -F'
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // Step into the folder containing vcpkg.json
+                dir('MathGameMain') {
+                    script {
+                        echo "Installing dependencies in ${pwd()}"
+                        sh '${VCPKG_ROOT}/vcpkg install'
+                    }
+                }
             }
         }
 
         stage('Configure') {
             steps {
-                // Run CMake with the correct toolchain path
-                // We also enable coverage flags
-                sh "cmake -B ${env.BUILD_DIR} -S . -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=${env.VCPKG_TOOLCHAIN} -DENABLE_COVERAGE=ON"
+                // Step into the folder containing CMakeLists.txt
+                dir('MathGameMain') {
+                    script {
+                        sh """
+                            cmake -B ${BUILD_DIR} -S . \
+                            -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
+                            -DCMAKE_BUILD_TYPE=Debug \
+                            -DENABLE_COVERAGE=ON
+                        """
+                    }
+                }
             }
         }
 
         stage('Build') {
             steps {
-                // Build all targets (MathGame and RunTests)
-                sh "cmake --build ${env.BUILD_DIR}"
+                dir('MathGameMain') {
+                    script {
+                        sh "cmake --build ${BUILD_DIR}"
+                    }
+                }
             }
         }
 
-        stage('Run Tests') {
+        stage('Unit Tests') {
             steps {
-                // Run the compiled test executable
-                sh "${env.BUILD_DIR}/RunTests"
+                dir('MathGameMain') {
+                    // Run the tests inside the build directory
+                    dir("${BUILD_DIR}") {
+                        script {
+                            // This runs the 'RunTests' executable built by CMake
+                            sh './RunTests -r junit -o results.xml'
+                        }
+                    }
+                }
+            }
+            post {
+                always {
+                    // Jenkins needs the path relative to the root to find the XML
+                    junit "MathGameMain/${BUILD_DIR}/results.xml"
+                }
+            }
+        }
+        
+        stage('Run Game (Verify)') {
+            steps {
+                dir('MathGameMain') {
+                    dir("${BUILD_DIR}") {
+                        script {
+                            // 1. Start the game server in the background
+                            // 2. Save its Process ID (PID) to a file so we can kill it later
+                            sh 'nohup ./MathGame > server.log 2>&1 & echo $! > pid.file'
+                            
+                            // 3. Wait 5 seconds for the server to start
+                            sleep 5
+                            
+                            // 4. Test if the login page loads (HTTP 200 OK)
+                            sh 'curl -v --fail http://localhost:18080/'
+                            
+                            // 5. Kill the server using the PID we saved
+                            sh 'kill $(cat pid.file)'
+                        }
+                    }
+                }
             }
         }
     }
-
-    // 5. Clean up at the end
+    
     post {
         always {
-            // Delete the 'build' directory to save space
-            deleteDir()
-            
-            // cleanWs() is more thorough
-            // cleanWs() 
+            // Clean up the workspace to save space
+            cleanWs()
         }
     }
 }
