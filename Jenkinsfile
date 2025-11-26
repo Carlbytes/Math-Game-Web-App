@@ -1,9 +1,9 @@
-
 pipeline {
     agent any 
 
     environment {
-        VCPKG_ROOT = "/home/sam/vcpkg"
+        // CHANGE 1: Point VCPKG_ROOT to the Jenkins workspace, NOT /home/sam
+        VCPKG_ROOT = "${WORKSPACE}/vcpkg"
         BUILD_DIR = "build"
         DEPLOY_DIR = "/home/sam/MathGameDeploy"
     }
@@ -13,10 +13,14 @@ pipeline {
             steps {
                 dir('MathGameMain') {
                     script {
+                        // CHANGE 2: Download vcpkg if it's not there yet
                         if (!fileExists("${VCPKG_ROOT}/vcpkg")) {
+                            echo "Downloading fresh vcpkg for Jenkins..."
                             sh 'git clone https://github.com/microsoft/vcpkg.git ${VCPKG_ROOT}'
                             sh '${VCPKG_ROOT}/bootstrap-vcpkg.sh'
                         }
+                        
+                        // Now install dependencies using this LOCAL vcpkg
                         sh '${VCPKG_ROOT}/vcpkg install'
                     }
                 }
@@ -33,7 +37,6 @@ pipeline {
                             -DCMAKE_BUILD_TYPE=Release \
                             -DENABLE_COVERAGE=OFF
                         """
-                        // Note: I switched to 'Release' mode for better performance in deployment
                     }
                 }
             }
@@ -69,21 +72,17 @@ pipeline {
         stage('Deploy Locally') {
             steps {
                 script {
-                    echo "Deploying to ${DEPLOY_DIR}..."
+                    // Ensure the deploy directory exists and is writable
+                    sh "mkdir -p ${DEPLOY_DIR}"
                     
-                    // 1. Kill existing server if running (ignore error if not running)
+                    echo "Deploying to ${DEPLOY_DIR}..."
                     sh 'pkill MathGame || true'
                     
-                    // 2. Copy the new Executable
                     sh "cp MathGameMain/${BUILD_DIR}/MathGame ${DEPLOY_DIR}/"
                     
-                    // 3. Copy the Static folder (CSS/HTML)
-                    // We remove the old static folder first to ensure no stale files remain
                     sh "rm -rf ${DEPLOY_DIR}/static"
                     sh "cp -r MathGameMain/static ${DEPLOY_DIR}/"
                     
-                    // 4. Start the server in the background detached from Jenkins
-                    // JENKINS_NODE_COOKIE=dontKillMe tells Jenkins "Leave this process alone"
                     dir("${DEPLOY_DIR}") {
                         withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
                             sh 'nohup ./MathGame > game_log.txt 2>&1 &'
@@ -96,8 +95,11 @@ pipeline {
     
     post {
         always {
-            cleanWs()
+            // IMPORTANT: Do NOT clean workspace entirely, or vcpkg will re-download every time.
+            // Only clean the build artifacts if you want to save space.
+            dir('MathGameMain/build') {
+                deleteDir()
+            }
         }
     }
 }
-
