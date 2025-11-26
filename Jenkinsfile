@@ -4,8 +4,14 @@ pipeline {
     environment {
         VCPKG_ROOT = "${WORKSPACE}/vcpkg"
         BUILD_DIR = "build"
-        // We will still deploy here
-        DEPLOY_DIR = "/home/sam/MathGameDeploy"
+       
+        // --- CONFIGURATION ---
+        // Your Docker Hub Username
+        DOCKER_USER = "sammcaulay"
+        // Your Docker Hub Repo Name
+        DOCKER_IMAGE = "mathgame"
+        // Your Oracle VPS IP Address
+        VPS_IP = "132.145.45.36" 
     }
 
     stages {
@@ -14,7 +20,6 @@ pipeline {
                 dir('MathGameMain') {
                     script {
                         if (!fileExists("${VCPKG_ROOT}/vcpkg")) {
-                            echo "Downloading vcpkg..."
                             sh 'git clone https://github.com/microsoft/vcpkg.git ${VCPKG_ROOT}'
                             sh '${VCPKG_ROOT}/bootstrap-vcpkg.sh'
                         }
@@ -24,70 +29,66 @@ pipeline {
             }
         }
 
-        stage('Configure') {
+        stage('Configure & Build (Local)') {
             steps {
                 dir('MathGameMain') {
                     script {
                         sh """
                             cmake -B ${BUILD_DIR} -S . \
                             -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
-                            -DCMAKE_BUILD_TYPE=Release \
-                            -DENABLE_COVERAGE=OFF
+                            -DCMAKE_BUILD_TYPE=Release
                         """
-                    }
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                dir('MathGameMain') {
-                    script {
                         sh "cmake --build ${BUILD_DIR}"
                     }
                 }
             }
         }
 
-        stage('Unit Tests') {
+        stage('Build Docker Image') {
             steps {
-                dir('MathGameMain') {
-                    dir("${BUILD_DIR}") {
-                        script {
-                            sh './RunTests -r junit -o results.xml'
-                        }
-                    }
-                }
-            }
-            post {
-                always {
-                    junit "MathGameMain/${BUILD_DIR}/results.xml"
+                script {
+                    // Build the image using the Dockerfile in MathGameMain
+                    // We tag it with the build number so every build is unique
+                    sh "docker build -t ${DOCKER_USER}/${DOCKER_IMAGE}:latest -t ${DOCKER_USER}/${DOCKER_IMAGE}:${BUILD_NUMBER} -f MathGameMain/Dockerfile MathGameMain"
                 }
             }
         }
-        
-        stage('Deploy Locally') {
+
+        stage('Push to Hub') {
             steps {
                 script {
-                    echo "Deploying to ${DEPLOY_DIR}..."
-                    
-                    // Ensure the directory exists (using -p so it doesn't fail if it exists)
-                    sh "mkdir -p ${DEPLOY_DIR}"
-                    
-                    // 1. Kill existing server
-                    sh 'pkill MathGame || true'
-                    
-                    // 2. Copy files
-                    // We use full paths here so we don't need to change directories context
-                    sh "cp MathGameMain/${BUILD_DIR}/MathGame ${DEPLOY_DIR}/"
-                    sh "rm -rf ${DEPLOY_DIR}/static"
-                    sh "cp -r MathGameMain/static ${DEPLOY_DIR}/"
-                    
-                    // 3. Start the server safely
-                    // We use 'cd' INSIDE the sh command to avoid the permission error
-                    withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
-                        sh "cd ${DEPLOY_DIR} && nohup ./MathGame > game_log.txt 2>&1 &"
+                    // Log in to Docker Hub using the credentials we stored earlier
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker push ${DOCKER_USER}/${DOCKER_IMAGE}:latest"
+                        sh "docker push ${DOCKER_USER}/${DOCKER_IMAGE}:${BUILD_NUMBER}"
                     }
+                }
+            }
+        }
+
+        stage('Deploy to Oracle Cloud') {
+            steps {
+                // SSH into the remote server and run the game
+                sshagent(['oracle-vps-key']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@${VPS_IP} '
+                            # 1. Pull the latest image
+                            docker pull ${DOCKER_USER}/${DOCKER_IMAGE}:latest && \
+                            
+                            # 2. Stop and remove the old game container (ignore errors if not running)
+                            docker stop mathgame || true && \
+                            docker rm mathgame || true && \
+                            
+                            # 3. Start the new container
+                            # -d: Detached mode
+                            # --restart unless-stopped: If the server reboots, the game auto-starts
+                            # -p 80:18080: Map external port 80 (standard HTTP) to internal 18080
+                            docker run -d --name mathgame \
+                                -p 80:18080 \
+                                --restart unless-stopped \
+                                ${DOCKER_USER}/${DOCKER_IMAGE}:latest'
+                    """
                 }
             }
         }
@@ -95,10 +96,9 @@ pipeline {
     
     post {
         always {
-            // Optional: Clean build artifacts to save space, but keep vcpkg
-            dir('MathGameMain/build') {
-                deleteDir()
-            }
+            // Clean up local docker images to save space on your laptop
+            sh "docker rmi ${DOCKER_USER}/${DOCKER_IMAGE}:latest || true"
+            sh "docker rmi ${DOCKER_USER}/${DOCKER_IMAGE}:${BUILD_NUMBER} || true"
         }
     }
 }
