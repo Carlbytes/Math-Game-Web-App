@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     environment {
-        // Based on your logs, vcpkg is at /home/sam/vcpkg
+        // Adjust this path if vcpkg is installed somewhere else
         VCPKG_ROOT = "/home/sam/vcpkg"
-        // We will create the build folder INSIDE the MathGameMain folder
+        // Build folder name
         BUILD_DIR = "build"
     }
 
     stages {
         stage('Install Dependencies') {
             steps {
-                // 1. Enter the project folder
+                // 1. Move into the source folder where vcpkg.json is located
                 dir('MathGameMain') {
                     script {
-                        // Run vcpkg install here so it finds vcpkg.json
+                        // This uses the vcpkg.json file in this folder
                         sh '${VCPKG_ROOT}/vcpkg install'
                     }
                 }
@@ -23,15 +23,17 @@ pipeline {
 
         stage('Configure') {
             steps {
+                // 2. Move into the source folder where CMakeLists.txt is located
                 dir('MathGameMain') {
-                    // 2. Configure CMake inside the folder
-                    // -S . means "source is in current folder" (which is now MathGameMain)
-                    sh """
-                        cmake -B ${BUILD_DIR} -S . \
-                        -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
-                        -DCMAKE_BUILD_TYPE=Debug \
-                        -DENABLE_COVERAGE=ON
-                    """
+                    script {
+                        // -S . tells CMake to look in the current directory (MathGameMain)
+                        sh """
+                            cmake -B ${BUILD_DIR} -S . \
+                            -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
+                            -DCMAKE_BUILD_TYPE=Debug \
+                            -DENABLE_COVERAGE=ON
+                        """
+                    }
                 }
             }
         }
@@ -39,8 +41,9 @@ pipeline {
         stage('Build') {
             steps {
                 dir('MathGameMain') {
-                    // 3. Build inside the folder
-                    sh "cmake --build ${BUILD_DIR}"
+                    script {
+                        sh "cmake --build ${BUILD_DIR}"
+                    }
                 }
             }
         }
@@ -48,15 +51,17 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 dir('MathGameMain') {
+                    // 3. Run the tests from inside the build directory
                     dir("${BUILD_DIR}") {
-                        // 4. Run tests inside the build folder
-                        sh './RunTests -r junit -o results.xml'
+                        script {
+                            sh './RunTests -r junit -o results.xml'
+                        }
                     }
                 }
             }
             post {
                 always {
-                    // Jenkins looks for the results file relative to workspace root
+                    // Publish the JUnit test results
                     junit "MathGameMain/${BUILD_DIR}/results.xml"
                 }
             }
@@ -66,11 +71,13 @@ pipeline {
             steps {
                 dir('MathGameMain') {
                     dir("${BUILD_DIR}") {
-                        // 5. Dry run verification
-                        sh 'nohup ./MathGame > server.log 2>&1 & echo $! > pid.file'
-                        sleep 5
-                        sh 'curl -v --fail http://localhost:18080/'
-                        sh 'kill $(cat pid.file)'
+                        script {
+                            // Start server in background, verify it, and kill it
+                            sh 'nohup ./MathGame > server.log 2>&1 & echo $! > pid.file'
+                            sleep 5
+                            sh 'curl -v --fail http://localhost:18080/'
+                            sh 'kill $(cat pid.file)'
+                        }
                     }
                 }
             }
