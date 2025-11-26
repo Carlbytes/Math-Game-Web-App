@@ -1,6 +1,6 @@
 # Math Game Web App
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-success?style=for-the-badge)](https://sam-mathgame.duckdns.org) [![Build Status](https://img.shields.io/badge/Build-Passing-success?style=flat&logo=jenkins)](https://github.com/Carlbytes/SoftwareDevelopment3GP)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-success?style=for-the-badge)](https://se3-mathgame.duckdns.org) [![Build Status](https://img.shields.io/badge/Build-Passing-success?style=flat&logo=jenkins)](https://github.com/Carlbytes/SoftwareDevelopment3GP)
 
 This is a web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
 
