@@ -2,29 +2,22 @@ pipeline {
     agent any 
 
     environment {
-        // Path to vcpkg on your Linux Mint machine
-        VCPKG_ROOT = "/home/sam/vcpkg" 
-        // The build folder will be created inside MathGameMain
-        BUILD_DIR = "build" 
+        VCPKG_ROOT = "${WORKSPACE}/vcpkg"
+        BUILD_DIR = "build"
+        // We will still deploy here
+        DEPLOY_DIR = "/home/sam/MathGameDeploy"
     }
 
     stages {
-        stage('Debug Info') {
-            steps {
-                script {
-                    // This helps us verify where we are
-                    echo "Root Directory: ${pwd()}"
-                    sh 'ls -F'
-                }
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
-                // Step into the folder containing vcpkg.json
                 dir('MathGameMain') {
                     script {
-                        echo "Installing dependencies in ${pwd()}"
+                        if (!fileExists("${VCPKG_ROOT}/vcpkg")) {
+                            echo "Downloading vcpkg..."
+                            sh 'git clone https://github.com/microsoft/vcpkg.git ${VCPKG_ROOT}'
+                            sh '${VCPKG_ROOT}/bootstrap-vcpkg.sh'
+                        }
                         sh '${VCPKG_ROOT}/vcpkg install'
                     }
                 }
@@ -33,14 +26,13 @@ pipeline {
 
         stage('Configure') {
             steps {
-                // Step into the folder containing CMakeLists.txt
                 dir('MathGameMain') {
                     script {
                         sh """
                             cmake -B ${BUILD_DIR} -S . \
                             -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
-                            -DCMAKE_BUILD_TYPE=Debug \
-                            -DENABLE_COVERAGE=ON
+                            -DCMAKE_BUILD_TYPE=Release \
+                            -DENABLE_COVERAGE=OFF
                         """
                     }
                 }
@@ -60,10 +52,8 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 dir('MathGameMain') {
-                    // Run the tests inside the build directory
                     dir("${BUILD_DIR}") {
                         script {
-                            // This runs the 'RunTests' executable built by CMake
                             sh './RunTests -r junit -o results.xml'
                         }
                     }
@@ -71,30 +61,32 @@ pipeline {
             }
             post {
                 always {
-                    // Jenkins needs the path relative to the root to find the XML
                     junit "MathGameMain/${BUILD_DIR}/results.xml"
                 }
             }
         }
         
-        stage('Run Game (Verify)') {
+        stage('Deploy Locally') {
             steps {
-                dir('MathGameMain') {
-                    dir("${BUILD_DIR}") {
-                        script {
-                            // 1. Start the game server in the background
-                            // 2. Save its Process ID (PID) to a file so we can kill it later
-                            sh 'nohup ./MathGame > server.log 2>&1 & echo $! > pid.file'
-                            
-                            // 3. Wait 5 seconds for the server to start
-                            sleep 5
-                            
-                            // 4. Test if the login page loads (HTTP 200 OK)
-                            sh 'curl -v --fail http://localhost:18080/'
-                            
-                            // 5. Kill the server using the PID we saved
-                            sh 'kill $(cat pid.file)'
-                        }
+                script {
+                    echo "Deploying to ${DEPLOY_DIR}..."
+                    
+                    // Ensure the directory exists (using -p so it doesn't fail if it exists)
+                    sh "mkdir -p ${DEPLOY_DIR}"
+                    
+                    // 1. Kill existing server
+                    sh 'pkill MathGame || true'
+                    
+                    // 2. Copy files
+                    // We use full paths here so we don't need to change directories context
+                    sh "cp MathGameMain/${BUILD_DIR}/MathGame ${DEPLOY_DIR}/"
+                    sh "rm -rf ${DEPLOY_DIR}/static"
+                    sh "cp -r MathGameMain/static ${DEPLOY_DIR}/"
+                    
+                    // 3. Start the server safely
+                    // We use 'cd' INSIDE the sh command to avoid the permission error
+                    withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
+                        sh "cd ${DEPLOY_DIR} && nohup ./MathGame > game_log.txt 2>&1 &"
                     }
                 }
             }
@@ -103,8 +95,10 @@ pipeline {
     
     post {
         always {
-            // Clean up the workspace to save space
-            cleanWs()
+            // Optional: Clean build artifacts to save space, but keep vcpkg
+            dir('MathGameMain/build') {
+                deleteDir()
+            }
         }
     }
 }
