@@ -1,16 +1,27 @@
 # Math Game Web App
 
-This is a simple, web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
-The project is built using CMake and manages its dependencies with vcpkg.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-success?style=for-the-badge)](https://se3-mathgame.duckdns.org) [![Build Status](https://img.shields.io/badge/Build-Passing-success?style=flat&logo=jenkins)](https://github.com/Carlbytes/SoftwareDevelopment3GP)
+
+This is a web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
+
+The project allows for standard development builds via CMake/vcpkg, but also features a fully automated **CI/CD pipeline** that containerizes the application with Docker and deploys it to a live production server.
+
+## 🚀 Live Deployment
+The project is currently hosted on an Oracle Cloud VPS using a Dockerized environment behind a secure Caddy reverse proxy.
+
+**[Play the Game Here](https://se3-mathgame.duckdns.org)**
 
 ## Features
-- User Authentication: Users can register and log in to their accounts.
-- Persistent Sessions: A simple token-based session system is stored in the database.
-- Three Difficulties:
-   - Easy: "Which number is closest?"
-   - Medium: Arithmetic with multiple-choice orbs (+, -, *, /).
-   - Hard: Arithmetic with manual number input (+, -, *, /).
-   - Unit Tests: Backend logic is tested using the Catch2 framework.
+- **User Authentication:** Users can register and log in to their accounts.
+- **Persistent Sessions:** A simple token-based session system stored in SQLite.
+- **Three Difficulties:**
+  - **Easy:** "Which number is closest?"
+  - **Medium:** Arithmetic with multiple-choice orbs (+, -, *, /).
+  - **Hard:** Arithmetic with manual number input (+, -, *, /).
+- **Unit Tests:** Backend logic is thoroughly tested using the Catch2 framework.
+- **CI/CD Pipeline:** Fully automated Build, Test, and Deploy workflow using Jenkins.
+- **Dockerized:** Runs in a lightweight container for consistency across environments.
+- **HTTPS/SSL:** Automatically secured via Let's Encrypt and Caddy.
  
 ## Project Structure
 ```
@@ -31,139 +42,99 @@ The project is built using CMake and manages its dependencies with vcpkg.
 ├── CMakeLists.txt      # Main CMake build script
 └── vcpkg.json          # vcpkg manifest for dependencies (crow, sqlite3, catch2)
 ```
+## ⚙️ CI/CD & Architecture
 
-## Prerequisites
-Before you begin, ensure you have the following tools installed:
-- Git: https://git-scm.com/downloads
-- CMake (v3.15 or higher): https://cmake.org/download/
-- A C++ Compiler:
-   - Windows: Visual Studio 2019 or later (with the "Desktop development with C++" workload).
-   - Linux/WSL: `build-essential` (which includes `g++`) or `clang`.
-     ```
-      sudo apt update
-      sudo apt install build-essential g++
+This project utilizes a modern DevOps pipeline to ensure code quality and automated deployment.
+1. Source Control: Code pushed to GitHub triggers the pipeline.
+2. Jenkins Pipeline:
+   - **Build:** Compiles the C++ code using CMake.
+   - **Test:** Runs Catch2 unit tests. If tests fail, the pipeline stops.
+   - **Package:** Builds a Docker image containing the optimized binary and static assets.
+   - **Publish:** Pushes the Docker image to Docker Hub (sammcaulay/mathgame).
+3. Production:
+   - The pipeline SSHs into an **Oracle Cloud VPS.**
+   - Pulls the new image from Docker Hub.
+   - Restarts the containers using a Caddy sidecar container to handle HTTPS and Reverse Proxying.
+  
+## 🐳 Running via Docker (Recommended)
 
-     ```
+You can run the game locally without installing C++ compilers or vcpkg if you have Docker installed.
 
-## Installation & Setup
-These instructions use `vcpkg` for dependency management. We will install `vcpkg` first.
-
-### 1. Install vcpkg
-It is recommended to install `vcpkg` in a central location outside of this project folder.
-
-### Windows (PowerShell)
 ```
-# We recommend a central location, e.g., C:\dev\vcpkg
+# 1. Build the image
+docker build -t mathgame .
+
+# 2. Run the container (Maps internal port 18080 to local 8080)
+docker run -p 8080:18080 mathgame
+```
+
+Open your browser to `http://localhost:8080`.
+
+## 🛠️ Manual Development Setup
+
+If you wish to modify the C++ code or run the project without Docker, follow these steps.
+
+### Prerequisites
+- Git
+- CMake (v3.15 or higher)
+- C++ Compiler (Visual Studio 2019+ or GCC/Clang)
+
+1. Install vcpkg
+
+It is recommended to install vcpkg in a central location.
+
+### Windows (PowerShell):
+```
 git clone [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/vcpkg.git) C:\dev\vcpkg
 .\vcpkg\bootstrap-vcpkg.bat
-# This next step makes vcpkg available system-wide for Visual Studio & CLion
 .\vcpkg\vcpkg.exe integrate install
 ```
-
-### Linux / WSL (Bash)
+### Linux / WSL (Bash):
 ```
-# We recommend a central location, e.g., $HOME/vcpkg
 git clone [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/vcpkg.git) ~/vcpkg
 ~/vcpkg/bootstrap-vcpkg.sh
-# This next step makes vcpkg available system-wide for your user
 ~/vcpkg/vcpkg integrate install
 ```
 
-### 2. Clone This Repository
-Now, clone this project repository to your local machine.
+### 2. Clone Repository
 ```
-git clone [https://github.com/your-username/math-game.git](https://github.com/your-username/math-game.git)
-cd math-game
+git clone [https://github.com/Carlbytes/SoftwareDevelopment3GP.git](https://github.com/Carlbytes/SoftwareDevelopment3GP.git)
+cd SoftwareDevelopment3GP
 ```
 
-## Building and Running the Project
-You can build the project using an IDE (recommended) or manually from the terminal.
+3. Build & Run
 
-### Windows / Linux / WSL: CLion
-1. Open CLion
-2. Go to `File > Open`  and select the cloned `MathGameMain` folder.
-3. CLion will automatically detect the `CMakeLists.txt`.
-4. Go to `File > Settings > Build, Execution, Deployment > CMake`.
-5. Find your profile (e.g., "Debug") and add the following to the CMake options box. This tells CLion where to find `vcpkg`.
-   - (Remember to use forward slashes / for paths)
-     ```
-      -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake
-
-      ### FOR CODE COVERAGE:
-      -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake -DENABLE_COVERAGE=ON
-     ```
-6. Click `OK`. CLion should reload CMake and successfully find all dependencies.
-7. Select the `MathGame` target from the configuration drop-down (top right).
-8. Click the `Run` (▶) button.
-9. Open your browser to `http://localhost:18080.`
-
-## Windows: Visual Studio (2019 or later)
-Visual Studio's "Open Folder" feature works perfectly with CMake and `vcpkg`.
-
-1. Open Visual Studio.
-2. On the welcome screen, select "Open a local folder".
-3. Navigate to and select the cloned `MathGameMain` folder.
-4. Visual Studio will read the `CMakeLists.txt` and configure the project. Because you ran `vcpkg integrate install`, it should automatically find the dependencies.
-5. In the Solution Explorer, right-click on `CMakeLists.txt` and select "Build".
-6. Once built, select `MathGame.exe` from the "Select Startup Item" drop-down in the toolbar.
-7. Click the green `Run` (▶) button.
-8. Open your browser to `http://localhost:18080`.
-
-## Linux / WSL: 
-This is the classic CMake workflow. Run these commands from the root of the `math-game` project directory.
+### Linux / WSL (Terminal):
 ```
-# Set the path to your vcpkg toolchain file
+# Set path to your vcpkg toolchain
+# Adjust path if your vcpkg is elsewhere
 VCPKG_TOOLCHAIN=~/vcpkg/scripts/buildsystems/vcpkg.cmake
 
-# 1. Configure CMake
-#    (We'll create a build directory named 'build')
-cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_TOOLCHAIN
+# Configure (Source is in MathGameMain folder)
+cmake -B build -S MathGameMain -DCMAKE_TOOLCHAIN_FILE=$VCPKG_TOOLCHAIN
 
-# 2. Build the project
+# Build
 cmake --build build
 
-# 3. Run the server
+# Run
 ./build/MathGame
-
 ```
-Your server is now running. Open a web browser to `http://localhost:18080` to play the game.
+Access at `http://localhost:18080`.
 
-## Running the Unit Tests
-This project uses Catch2 for unit testing. The tests are defined in the `RunTests` target.
+### Windows (Visual Studio):
+1. Open Visual Studio and select "Open a local folder".
+2. Select the `MathGameMain` folder.
+3. Visual Studio should auto-detect `CMakeLists.txt` and configure dependencies via vcpkg.
+4. Right-click `CMakeLists.txt` -> Build.
+5. Select `MathGame.exe` from the startup item dropdown and click Run.
 
-### From CLion / Visual Studio:
-1. Change the active build target from `MathGame` to `RunTests`.
-2. Click the `Run` (▶) button. The tests will run in the console.
+## Running Unit Tests
 
-### From the Terminal (Linux / WSL):
-1. Make sure you have already built the project (see manual build steps above).
-2. Run the test executable:
-   ```
-   ./build/RunTests
-   ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+This project uses Catch2.
+### From Terminal:
+```
+./build/RunTests
+```
 
 
 
