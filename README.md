@@ -93,7 +93,7 @@ If you wish to modify the C++ code or run the project without Docker, follow the
 - CMake (v3.15 or higher)
 - C++ Compiler (Visual Studio 2019+ or GCC/Clang)
 
-1. Install vcpkg
+## 1. Install vcpkg
 
 It is recommended to install vcpkg in a central location.
 
@@ -110,13 +110,13 @@ git clone [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/
 ~/vcpkg/vcpkg integrate install
 ```
 
-### 2. Clone Repository
+## 2. Clone Repository
 ```
 git clone [https://github.com/Carlbytes/SoftwareDevelopment3GP.git](https://github.com/Carlbytes/SoftwareDevelopment3GP.git)
 cd SoftwareDevelopment3GP
 ```
 
-3. Build & Run
+## 3. Build & Run
 
 ### Linux / WSL (Terminal):
 ```
