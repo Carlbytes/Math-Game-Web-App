@@ -1,7 +1,17 @@
+<div align="center">
+
 # Math Game Web App
+
+![Repo Size](https://img.shields.io/github/repo-size/Carlbytes/SoftwareDevelopment3GP?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/Carlbytes/SoftwareDevelopment3GP?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/Carlbytes/SoftwareDevelopment3GP?style=for-the-badge)
+
+<br />
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-success?style=for-the-badge&logo=firefox&logoColor=white)](https://se3-mathgame.duckdns.org)
 [![Build Status](https://img.shields.io/badge/Build-Passing-success?style=for-the-badge&logo=jenkins&logoColor=white)](https://github.com/Carlbytes/SoftwareDevelopment3GP)
+
+<br />
 
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white)
@@ -15,6 +25,8 @@
 ![Oracle Cloud](https://img.shields.io/badge/Oracle_Cloud-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 ![Caddy](https://img.shields.io/badge/caddy-%2300ADD8.svg?style=for-the-badge&logo=caddy&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+</div>
 
 This is a web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
 
