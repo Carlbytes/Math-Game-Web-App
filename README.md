@@ -1,6 +1,20 @@
 # Math Game Web App
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-success?style=for-the-badge)](https://se3-mathgame.duckdns.org) [![Build Status](https://img.shields.io/badge/Build-Passing-success?style=flat&logo=jenkins)](https://github.com/Carlbytes/SoftwareDevelopment3GP)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-success?style=for-the-badge&logo=firefox&logoColor=white)](https://se3-mathgame.duckdns.org)
+[![Build Status](https://img.shields.io/badge/Build-Passing-success?style=for-the-badge&logo=jenkins&logoColor=white)](https://github.com/Carlbytes/SoftwareDevelopment3GP)
+
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white)
+![Crow](https://img.shields.io/badge/Crow-Microframework-black?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Jenkins](https://img.shields.io/badge/jenkins-%23D24939.svg?style=for-the-badge&logo=jenkins&logoColor=white)
+![Oracle Cloud](https://img.shields.io/badge/Oracle_Cloud-F80000?style=for-the-badge&logo=oracle&logoColor=white)
+![Caddy](https://img.shields.io/badge/caddy-%2300ADD8.svg?style=for-the-badge&logo=caddy&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 This is a web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
 
@@ -79,7 +93,7 @@ If you wish to modify the C++ code or run the project without Docker, follow the
 - CMake (v3.15 or higher)
 - C++ Compiler (Visual Studio 2019+ or GCC/Clang)
 
-1. Install vcpkg
+## 1. Install vcpkg
 
 It is recommended to install vcpkg in a central location.
 
@@ -96,13 +110,13 @@ git clone [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/
 ~/vcpkg/vcpkg integrate install
 ```
 
-### 2. Clone Repository
+## 2. Clone Repository
 ```
 git clone [https://github.com/Carlbytes/SoftwareDevelopment3GP.git](https://github.com/Carlbytes/SoftwareDevelopment3GP.git)
 cd SoftwareDevelopment3GP
 ```
 
-3. Build & Run
+## 3. Build & Run
 
 ### Linux / WSL (Terminal):
 ```
