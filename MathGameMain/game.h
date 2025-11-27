@@ -2,7 +2,7 @@
 
 #include "crow.h"
 
-// --- GameEasy Class ---
+// class functions
 // This class holds the main API functions for the easy game
 class GameEasy {
 public:
@@ -11,10 +11,7 @@ public:
  static crow::json::wvalue check_answer(int user_answer, int correct_answer);
 };
 
-// --- GameEasy Helper Functions ---
-// These are the functions your colleague wrote.
-// By declaring them here, other files (like tests.cpp) can see them.
-
+// helper functions
 /**
  * @brief Returns the index (0..2) of the option closest to target
  */

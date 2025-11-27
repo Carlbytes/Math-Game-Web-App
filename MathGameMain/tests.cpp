@@ -6,15 +6,14 @@
 #include "game.h"
 #include "gameMedium.h"
 #include "gameHard.h"
-#include "Database.h" // <--- ADDED
-#include "crow.h"     // <--- ADDED
+#include "Database.h" 
+#include "crow.h"     
 
 #include <string>
-#include <memory>         // <--- ADDED
-#include <unordered_set>  // <--- ADDED
-#include <cstdio>         // <--- ADDED (for std::remove)
+#include <memory>         
+#include <unordered_set>  
+#include <cstdio>         
 
-// --- Prototypes for static functions in main.cpp ---
 // We must declare them here to make them visible to the test runner.
 crow::response load_static_file(const std::string& path);
 bool auth_check(const std::shared_ptr<Database>& db_ptr,
@@ -24,10 +23,7 @@ bool auth_check(const std::shared_ptr<Database>& db_ptr,
                 crow::response& res);
 
 
-// =========================================================================
-// PART 1: "Easy" Game Helper Functions (Boundary & Logic Tests)
-// =========================================================================
-
+// easy game helper functions
 TEST_CASE("Easy Game Helpers - isValidChoice") {
     SECTION("Valid choices") {
         REQUIRE(isValidChoice(1) == true);
@@ -61,11 +57,7 @@ TEST_CASE("Easy Game Helpers - findClosestIndex") {
     }
 }
 
-// =========================================================================
-// PART 2: Game Logic "API" Functions
-// =========================================================================
-
-// --- Helper function to convert a wvalue to a string for testing ---
+// logic api functions
 std::string getJsonString(const crow::json::wvalue& val) {
     return val.dump();
 }
@@ -172,9 +164,7 @@ TEST_CASE("GameHard - API Functions") {
     }
 }
 
-// =========================================================================
-// PART 3: Database.cpp Tests
-// =========================================================================
+// databasecpp tests
 TEST_CASE("Database Logic") {
     const std::string test_db_name = "test_db.sqlite";
 
@@ -237,7 +227,6 @@ TEST_CASE("Database Logic") {
     }
 }
 
-// --- NEW TEST CASE FOR BRANCH COVERAGE ---
 TEST_CASE("Database Error Conditions (Closed DB)") {
     // This test case is designed to trigger the error-handling branches
     // that are missed when the database is working correctly.
@@ -288,11 +277,7 @@ TEST_CASE("Database Error Conditions (Closed DB)") {
     }
 }
 
-
-// =========================================================================
-// PART 4: main.cpp Helper Function Tests
-// =========================================================================
-
+// main helper functions
 TEST_CASE("Main.cpp Helpers - load_static_file") {
 
     SECTION("Load existing file") {
@@ -318,7 +303,6 @@ TEST_CASE("Main.cpp Helpers - load_static_file") {
         REQUIRE(res.code == 404);
     }
 
-    // --- NEW SECTION FOR BRANCH COVERAGE ---
     SECTION("Load file with no extension") {
         // This tests the final 'else' branch in the content-type logic
         // We simulate this by asking for a file we know doesn't have .html or .css

@@ -14,25 +14,21 @@ struct MathProblem {
     int correctAnswer;
 };
 
-// --- Static member definition ---
+
+// static member def
 // This RNG will be initialized once and reused
 static std::mt19937 rng;
 
-
-// --- Helper Functions ---
+// helper functions
 // These are kept internal to this .cpp file
 
-/**
- * @brief Generates a random integer within a specified range [min, max].
- */
+// generates an integer within a range
 int getRandomInt(int min, int max) {
     std::uniform_int_distribution<int> dist(min, max);
     return dist(rng);
 }
 
-/**
- * @brief Generates the logic for an addition problem.
- */
+// generates the math for an addition problem
 MathProblem generateAdditionProblem() {
     int num1 = getRandomInt(1, 20);
     int num2 = getRandomInt(1, 20);
@@ -40,9 +36,7 @@ MathProblem generateAdditionProblem() {
     return MathProblem{ num1, num2, '+', answer };
 }
 
-/**
- * @brief Generates the logic for a subtraction problem.
- */
+// generates the math for a subtraction problem
 MathProblem generateSubtractionProblem() {
     int num1 = getRandomInt(1, 20);
     int num2 = getRandomInt(1, 20);
@@ -54,9 +48,7 @@ MathProblem generateSubtractionProblem() {
     return MathProblem{ num1, num2, '-', answer };
 }
 
-/**
- * @brief Generates the logic for a multiplication problem.
- */
+// generates the logic for a multiplication problem
 MathProblem generateMultiplicationProblem() {
     int num1 = getRandomInt(1, 12); // Kept smaller for multiplication
     int num2 = getRandomInt(1, 12);
@@ -64,9 +56,7 @@ MathProblem generateMultiplicationProblem() {
     return MathProblem{ num1, num2, '*', answer };
 }
 
-/**
- * @brief Generates the logic for a division problem (ensuring whole numbers).
- */
+// generates the logic for a division problem
 MathProblem generateDivisionProblem() {
     int num2 = getRandomInt(2, 12); // Divisor
     int answer = getRandomInt(2, 12); // Result
@@ -74,9 +64,7 @@ MathProblem generateDivisionProblem() {
     return MathProblem{ num1, num2, '/', answer };
 }
 
-/**
- * @brief Main dispatcher for the random problem systems.
- */
+// main dispatcher for the random problem solutions
 MathProblem generateProblem() {
     int problemType = getRandomInt(0, 3); // 0=Add, 1=Sub, 2=Mul, 3=Div
 
@@ -89,9 +77,7 @@ MathProblem generateProblem() {
     }
 }
 
-/**
- * @brief Generates the three answer orbs (correct + 2 distractors).
- */
+// generates three answer orbs, one correct two wrong
 std::vector<int> generateOrbs(int correctAnswer) {
     int offset1 = getRandomInt(1, 5);
     int offset2 = getRandomInt(1, 5);
@@ -117,19 +103,15 @@ std::vector<int> generateOrbs(int correctAnswer) {
 }
 
 
-// --- GameMedium Class Implementation ---
+// main class implementation
 
-/**
- * @brief Initializes the static random number generator.
- */
+// initialises a random number generator
 void GameMedium::initialize() {
     // Use a time-based seed for a real game
     rng = std::mt19937(static_cast<unsigned int>(std::time(0)));
 }
 
-/**
- * @brief Generates a new "Medium" math question and three orbs.
- */
+// generates a new question and three orbs
 crow::json::wvalue GameMedium::get_question() {
     // 1. Generate the problem
     MathProblem problem = generateProblem();
@@ -157,9 +139,7 @@ crow::json::wvalue GameMedium::get_question() {
     return res;
 }
 
-/**
- * @brief Checks if a user's answer is correct.
- */
+// checks if the user is correct
 crow::json::wvalue GameMedium::check_answer(int user_answer, int correct_answer) {
     crow::json::wvalue res;
     res["correct"] = (user_answer == correct_answer);

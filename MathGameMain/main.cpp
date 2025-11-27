@@ -148,7 +148,7 @@ int main() {
 
     // Protected Routes
     
-    // --- EASY API ---
+    // easy api
     CROW_ROUTE(app, "/api/easy/question").methods("GET"_method)
         ([] {
         return crow::response(200, GameEasy::get_question());
@@ -166,7 +166,7 @@ int main() {
         return crow::response(200, GameEasy::check_answer(user_ans, correct_ans));
     });
 
-    // --- MEDIUM API ---
+    // medium api
     CROW_ROUTE(app, "/api/medium/question").methods("GET"_method)
         ([] {
         return crow::response(200, GameMedium::get_question());
@@ -183,7 +183,7 @@ int main() {
         return crow::response(200, GameMedium::check_answer(user_ans, correct_ans));
     });
 
-    // --- HARD API ---
+    // hard api
     CROW_ROUTE(app, "/api/hard/question").methods("GET"_method)
         ([] {
         return crow::response(200, GameHard::get_question());

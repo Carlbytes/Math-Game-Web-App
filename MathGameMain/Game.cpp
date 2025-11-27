@@ -5,10 +5,7 @@
 #include <crow.h>
 #include <string>
 
-// ===========================================
-// GameEasy Class Functions
-// ===========================================
-
+// easy mode class functions
 void GameEasy::initialize() {
     // Seed the random number generator once
     srand(time(nullptr));
@@ -25,7 +22,6 @@ crow::json::wvalue GameEasy::get_question() {
     int closestIndex = findClosestIndex(target, options);
     int answer = options[closestIndex];
 
-    // --- START OF FIX ---
 
     // 1. Create the question string
     std::string question_str = "Which of these numbers is closest to " + std::to_string(target) + "?";
@@ -54,10 +50,7 @@ crow::json::wvalue GameEasy::check_answer(int user_answer, int correct_answer) {
 }
 
 
-// ===========================================
-// GameEasy Helper Functions
-// ===========================================
-
+// helper functions
 int findClosestIndex(int target, const int options[3]) {
     int closestIndex = 0;
     int smallestDiff = std::abs(options[0] - target);

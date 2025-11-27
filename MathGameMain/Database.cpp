@@ -4,15 +4,16 @@
 #include <iomanip>      // For std::setw, std::hex
 #include <random>       // For session token generation
 
-// Constructor
+// Constructor, this initialises the database connection and setup
 Database::Database(const std::string& db_name) : db(nullptr) {
     // Attempt to open the SQLite database file
+    // If the file does not exist one is created automatically
     if (sqlite3_open(db_name.c_str(), &db)) {
         std::cerr << "Error opening database: " << sqlite3_errmsg(db) << std::endl;
         // In a real app, you might throw an exception here
     } else {
         std::cout << "Database opened successfully." << std::endl;
-        // Enable foreign keys
+        // Enable foreign keys, as disabled by default
         sqlite3_exec(db, "PRAGMA foreign_keys = ON;", 0, 0, 0);
         // Create tables if they don't already exist
         create_tables();
@@ -23,18 +24,23 @@ Database::Database(const std::string& db_name) : db(nullptr) {
 
 // Destructor
 Database::~Database() {
+    // check if the database handle is valid before closing
     if (db) {
         sqlite3_close(db);
         std::cout << "Database closed." << std::endl;
     }
 }
 
-// Create 'users' and 'sessions' tables
+// Create 'users' and 'sessions' tables, if they dont already exist
 void Database::create_tables() {
     // Use a lock for all database operations to ensure thread safety
+    // this is used as this class may be accessed from multiple threads
+    // the lock is automatically released when the function goes out of scope
     std::lock_guard<std::mutex> lock(db_mutex);
 
     char* err_msg = nullptr;
+
+    // create users table with sql
     const char* sql_users = 
         "CREATE TABLE IF NOT EXISTS users ("
         "  id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -42,6 +48,8 @@ void Database::create_tables() {
         "  password_hash TEXT NOT NULL"
         ");";
 
+    // sqlite3_exec is a shortcut function that runs sql without needing to prepare statements
+    // it is safe to do here as there will be no user input
     if (sqlite3_exec(db, sql_users, 0, 0, &err_msg)) {
         std::cerr << "SQL error (users table): " << err_msg << std::endl;
         sqlite3_free(err_msg);
@@ -49,6 +57,9 @@ void Database::create_tables() {
         std::cout << "Users table OK." << std::endl;
     }
 
+    // Create sessions table
+    // token is the unique session id that we send to the browser cookie
+    // created_at defaults to the current time when the row is inserted
     const char* sql_sessions =
         "CREATE TABLE IF NOT EXISTS sessions ("
         "  token TEXT PRIMARY KEY NOT NULL,"
@@ -56,6 +67,7 @@ void Database::create_tables() {
         "  created_at DATETIME DEFAULT CURRENT_TIMESTAMP"
         ");";
     
+    // 
     if (sqlite3_exec(db, sql_sessions, 0, 0, &err_msg)) {
         std::cerr << "SQL error (sessions table): " << err_msg << std::endl;
         sqlite3_free(err_msg);
@@ -77,24 +89,36 @@ std::string Database::hash_password(const std::string& password) {
 
 // Create a new user in the 'users' table
 bool Database::create_user(const std::string& username, const std::string& password) {
+    // lock database for thread safety
     std::lock_guard<std::mutex> lock(db_mutex);
 
+    // hash the password immediately, we should always try to move away from plain text ASAP
     std::string hashed_pass = hash_password(password);
     
+
     sqlite3_stmt* stmt;
+    // parameter binding
+    // we use ? placeholders instead of concatenating strings.
+    // this should prevent sql injection attacks (extra shit this project really does not need)
     const char* sql = "INSERT INTO users (username, password_hash) VALUES (?, ?);";
     
+    // compiles the sql into byte code
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) != SQLITE_OK) {
         std::cerr << "SQL error (prepare create_user): " << sqlite3_errmsg(db) << std::endl;
         return false;
     }
-    
+    // attach the actual values to the ? placeholders
+    // sqlite_static tells sqlite that the string memory we are passing will stay valid
     sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 2, hashed_pass.c_str(), -1, SQLITE_STATIC);
     
+    // run the query
     int rc = sqlite3_step(stmt);
+
+    // clean up the compiled statement to prevent memory leaks
     sqlite3_finalize(stmt);
     
+    // check if insertion is successful
     if (rc != SQLITE_DONE) {
         std::cerr << "SQL error (execute create_user): " << sqlite3_errmsg(db) << std::endl;
         return false;
@@ -106,10 +130,12 @@ bool Database::create_user(const std::string& username, const std::string& passw
 // Check if a username and password match a record in 'users'
 bool Database::check_login(const std::string& username, const std::string& password) {
     std::lock_guard<std::mutex> lock(db_mutex);
-
+    
+    // we must hash the unput password to compare it against the stored hash
     std::string hashed_pass = hash_password(password);
 
     sqlite3_stmt* stmt;
+    // select 1 is an optimisation, we dont need to pull anything from it we just want to check it exists
     const char* sql = "SELECT 1 FROM users WHERE username = ? AND password_hash = ?;";
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) != SQLITE_OK) {
@@ -121,7 +147,9 @@ bool Database::check_login(const std::string& username, const std::string& passw
     sqlite3_bind_text(stmt, 2, hashed_pass.c_str(), -1, SQLITE_STATIC);
     
     int rc = sqlite3_step(stmt);
-    bool success = (rc == SQLITE_ROW); // We found a matching row
+
+    // if sqlite_row is returned, it means the query found a match
+    bool success = (rc == SQLITE_ROW);
     sqlite3_finalize(stmt);
     
     return success;
@@ -129,12 +157,18 @@ bool Database::check_login(const std::string& username, const std::string& passw
 
 // Generate a random 32-char hex token
 std::string Database::generate_token() {
+    // random device provides a seed, hardware based if availible
     std::random_device rd;
+    // standard mersenne_twister_engine seeded with rd()
     std::mt19937 gen(rd());
+    // distribution to pick numbers between 0 and 255
     std::uniform_int_distribution<> dis(0, 255);
     
     std::stringstream ss;
+    // set output to hexadecimal and pad with zeros if the number is small
     ss << std::hex << std::setfill('0');
+
+    // generate 16 bytes (32 hex charachters)
     for (int i = 0; i < 16; ++i) {
         ss << std::setw(2) << dis(gen);
     }
@@ -145,6 +179,7 @@ std::string Database::generate_token() {
 std::string Database::create_session(const std::string& username) {
     std::lock_guard<std::mutex> lock(db_mutex);
 
+    // Generate the unique string
     std::string token = generate_token();
     
     sqlite3_stmt* stmt;
@@ -165,7 +200,7 @@ std::string Database::create_session(const std::string& username) {
         std::cerr << "SQL error (execute create_session): " << sqlite3_errmsg(db) << std::endl;
         return "";
     }
-    
+    // return the token so the controller can send it as a cookie
     return token;
 }
 
@@ -186,6 +221,7 @@ bool Database::validate_session(const std::string& token) {
     sqlite3_bind_text(stmt, 1, token.c_str(), -1, SQLITE_STATIC);
     
     int rc = sqlite3_step(stmt);
+    
     bool success = (rc == SQLITE_ROW); // Token was found and is valid
     sqlite3_finalize(stmt);
     
