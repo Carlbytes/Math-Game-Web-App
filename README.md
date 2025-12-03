@@ -28,7 +28,7 @@
 
 </div>
 
-This is a web-based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
+This is a web based math game built with a C++ backend and an HTML/CSS/JS frontend. It uses the Crow C++ micro-framework to serve web pages and handle API requests, and SQLite3 for user authentication and session management.
 
 The project allows for standard development builds via CMake/vcpkg, but also features a fully automated **CI/CD pipeline** that containerizes the application with Docker and deploys it to a live production server.
 
